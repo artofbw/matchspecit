@@ -2,13 +2,16 @@ version: "3.7"
 
 services:
   django:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
     volumes:
       - django_static_volume:/app/static
     expose:
       - 8000
     env_file:
       - .env
-    command: gunicorn backend.wsgi:application --bind 0.0.0.0:8000
+    command: gunicorn core.wsgi:application --bind 0.0.0.0:8000
     depends_on:
       - db
   db:

@@ -1,4 +1,9 @@
 import os
+
+from django.conf import settings
+
+settings.configure(ROOT_URLCONF=__name__)
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Get Django environment set by docker (i.e either development or production), or else set it to local
@@ -11,10 +16,7 @@ DJANGO_ENV = os.environ.get("DJANGO_ENV", "local")
 SECRET_KEY = os.environ.get("SECRET_KEY", "localsecret")
 DEBUG = bool(int(os.environ.get("DEBUG", default=0)))
 
-try:
-    ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
-except:
-    ALLOWED_HOSTS = ['127.0.0.1', '0.0.0.0', 'localhost']
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "127.0.0.1 0.0.0.0 localhost").split(" ")
 
 DATABASES = {
     "default": {
@@ -27,11 +29,10 @@ DATABASES = {
     }
 }
 
-
 # (CORS) Cross-Origin Resource Sharing Settings
 CORS_ORIGIN_ALLOW_ALL = True
 
 # STATIC FILES ROOT AND URL
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATIC_URL = "/static/"
