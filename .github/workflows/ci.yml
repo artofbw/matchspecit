@@ -26,11 +26,12 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     - name: Run tests
-      run: |
+      env:
         DJANGO_SETTINGS_MODULE: core.settings_test
+      run: |
         python -m pip install --upgrade pip
         pip install pytest_django==4.5.2 pytest-xdist==2.4.0 pytest-sugar==0.9.4
-        pytest tests
+        pytest --cov . -n 2
     - name: Lint with flake8
       run: |
         python -m pip install --upgrade pip

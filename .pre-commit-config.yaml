@@ -1,0 +1,23 @@
+# Run these hooks before each commit to ensure code style integrity
+# https://pre-commit.com/
+
+default_language_version:
+  python: python3.9
+
+repos:
+  - repo: https://github.com/psf/black
+    rev: 21.12b0 # Replace by any tag/version: https://github.com/psf/black/tags
+    hooks:
+      - id: black
+        files: ^.*$
+        language_version: python3 # Should be a command that runs python3.9.9+
+
+  - repo: https://gitlab.com/pycqa/flake8
+    rev: 4.0.1
+    hooks:
+      - id: flake8
+
+  - repo: https://github.com/pre-commit/mirrors-isort
+    rev: v5.9.3
+    hooks:
+      -   id: isort

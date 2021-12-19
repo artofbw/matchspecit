@@ -1,0 +1,5 @@
+ipdb==0.13.9
+pytest_django==4.5.2
+pytest_cov==3.0.0
+pytest-xdist==2.4.0
+pytest-sugar==0.9.4
