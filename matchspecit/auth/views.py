@@ -5,7 +5,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 
 from matchspecit.auth.serializers import (
     MyTokenObtainPairSerializer,
-    RegisterSerializer,
+    RegisterSerializer
 )
 
 
