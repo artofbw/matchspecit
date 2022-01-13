@@ -1,5 +1,5 @@
 # flake8: noqa
-from core.settings_local import *
+from matchspecit.core.settings import *
 
 DEBUG = False
 SSL_ENABLED = False

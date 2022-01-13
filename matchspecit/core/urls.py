@@ -9,11 +9,10 @@ from rest_framework import permissions
 
 schema_view = get_schema_view(
     openapi.Info(
-        title="Snippets API",
+        title="MatchspecIT API",
         default_version='v1',
-        description="Test description",
-        terms_of_service="https://www.google.com/policies/terms/",
-        contact=openapi.Contact(email="contact@snippets.local"),
+        description="Wykaz dostępnych punktów dostępowych dla API",
+        contact=openapi.Contact(email="artofbw@gmail.com"),
         license=openapi.License(name="BSD License"),
     ),
     public=True,
@@ -21,8 +20,9 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
+    re_path(r'^$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path("admin/", admin.site.urls),
-    path("auth/", include("auth.urls")),
+    path("auth/", include("matchspecit.auth.urls")),
 ]
 
 if settings.DEBUG:

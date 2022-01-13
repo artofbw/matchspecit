@@ -36,7 +36,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 # STATIC FILES ROOT AND URL
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
-STATIC_URL = "/static/"
+STATIC_URL = "static/"
 
 SIMPLE_JWT = {
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),

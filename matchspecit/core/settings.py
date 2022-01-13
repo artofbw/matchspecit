@@ -52,13 +52,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-REST_FRAMEWORK = {
-    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
-    "PAGE_SIZE": 100,
-    "DEFAULT_SCHEMA_CLASS": "rest_framework.schemas.coreapi.AutoSchema"
-}
-
-ROOT_URLCONF = "core.urls"
+ROOT_URLCONF = "matchspecit.core.urls"
 
 TEMPLATES = [
     {
@@ -76,7 +70,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "core.wsgi.application"
+WSGI_APPLICATION = "matchspecit.core.wsgi.application"
 
 
 # Database
@@ -134,6 +128,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # IMPORT LOCAL SETTINGS
 
 try:
-    from core.settings_local import *
+    from matchspecit.core.settings_local import *
 except ImportError:
     pass
