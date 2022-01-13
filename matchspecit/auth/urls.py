@@ -3,7 +3,6 @@ from rest_framework_simplejwt.views import TokenRefreshView
 
 from matchspecit.auth.views import ObtainTokenPairView, RegisterView
 
-
 urlpatterns = [
     path("login/", ObtainTokenPairView.as_view(), name="token_obtain_pair"),
     path("login/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
