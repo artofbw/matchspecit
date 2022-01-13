@@ -33,7 +33,12 @@ class TestRegisterSerializer:
         assert set(serializer.errors.keys()) == {"password"}
 
     def test_serializer_returns_user(self):
-        expected_result = {'username': 'test_username', 'email': 'test@fake.com', 'first_name': 'Test', 'last_name': 'Fake'}
+        expected_result = {
+            "username": "test_username",
+            "email": "test@fake.com",
+            "first_name": "Test",
+            "last_name": "Fake",
+        }
         data = {
             "username": "test_username",
             "password": "5tr0ngPassword123!!",
