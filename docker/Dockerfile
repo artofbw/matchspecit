@@ -21,16 +21,7 @@ COPY requirements.txt /app
 
 RUN pip install --upgrade pip -r requirements.txt
 
-# Add the rest of the code
-COPY . /app
-
 # Make port 8000 available for the app
 EXPOSE 8000
 
-CMD python manage.py runserver 0.0.0.0:8000
-
-# # copy entrypoint.sh
-COPY ./docker/entrypoint.sh /app/entrypoint.sh
-# run entrypoint.sh
-RUN chmod +x /app/entrypoint.sh
-ENTRYPOINT ["/app/entrypoint.sh"]
+CMD gunicorn matchspecit.core.wsgi:application -w 2 -b 0.0.0.0:8000 --reload

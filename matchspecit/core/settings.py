@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "rest_framework",
+    "drf_yasg",
 ]
 
 MIDDLEWARE = [
@@ -50,7 +52,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "core.urls"
+ROOT_URLCONF = "matchspecit.core.urls"
 
 TEMPLATES = [
     {
@@ -68,7 +70,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "core.wsgi.application"
+WSGI_APPLICATION = "matchspecit.core.wsgi.application"
 
 
 # Database
@@ -126,6 +128,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # IMPORT LOCAL SETTINGS
 
 try:
-    from core.settings_local import *
+    from matchspecit.core.settings_local import *
 except ImportError:
     pass
