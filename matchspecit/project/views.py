@@ -14,6 +14,7 @@ class ProjectView(APIView):
 
     * Only authenticated users are able to access this view.
     """
+
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request: Request) -> Response:
@@ -43,6 +44,7 @@ class ProjectDetail(APIView):
 
     * Only authenticated users are able to access this view.
     """
+
     permission_classes = [permissions.IsAuthenticated]
 
     def get_object(self, pk: int) -> Response:
