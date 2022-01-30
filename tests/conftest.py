@@ -1,12 +1,19 @@
 import uuid
 
 import pytest
-from rest_framework.test import APIClient
+from rest_framework.test import APIClient, APIRequestFactory
+
+from matchspecit.project.models import Project
 
 
 @pytest.fixture
 def api_client():
     return APIClient()
+
+
+@pytest.fixture
+def api_request_factory():
+    return APIRequestFactory()
 
 
 @pytest.fixture
@@ -23,3 +30,11 @@ def create_user(db, django_user_model, test_password):
         return django_user_model.objects.create_user(**kwargs)
 
     return make_user
+
+
+@pytest.fixture
+def create_project():
+    def make_project(**kwargs):
+        return Project.objects.create(name="test name", **kwargs)
+
+    return make_project

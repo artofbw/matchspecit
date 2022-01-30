@@ -22,6 +22,7 @@ urlpatterns = [
     re_path(r"^$", schema_view.with_ui("swagger", cache_timeout=0), name="schema-swagger-ui"),
     path("admin/", admin.site.urls),
     path("auth/", include("matchspecit.auth.urls")),
+    path('', include('matchspecit.project.urls')),
 ]
 
 if settings.DEBUG:
