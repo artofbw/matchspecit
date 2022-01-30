@@ -13,7 +13,7 @@ class TestProjectView:
     url = reverse("project_view")
 
     def test_project_post_return_project(self, api_client, create_user, test_password):
-        expected_result = {'serializer.data': 200, 'status': 201}
+        expected_result = {"serializer.data": 200, "status": 201}
         user = create_user()
         api_client.force_authenticate(user=user)
 
@@ -58,7 +58,7 @@ class TestProjectDetail:
         response = api_client.get(url)
 
         assert response.status_code == status.HTTP_404_NOT_FOUND
-        assert response.json() == {'detail': 'Not found.'}
+        assert response.json() == {"detail": "Not found."}
 
     def test_project_detail_put_by_id_update_project(self, api_client, create_user, test_password, create_project):
         project = create_project()
@@ -80,7 +80,7 @@ class TestProjectDetail:
         response = api_client.put(url)
 
         assert response.status_code == status.HTTP_404_NOT_FOUND
-        assert response.json() == {'detail': 'Not found.'}
+        assert response.json() == {"detail": "Not found."}
 
     def test_project_detail_delete_by_id_removes_project(self, api_client, create_user, test_password, create_project):
         project = create_project()
@@ -100,4 +100,4 @@ class TestProjectDetail:
         response = api_client.put(url)
 
         assert response.status_code == status.HTTP_404_NOT_FOUND
-        assert response.json() == {'detail': 'Not found.'}
+        assert response.json() == {"detail": "Not found."}
