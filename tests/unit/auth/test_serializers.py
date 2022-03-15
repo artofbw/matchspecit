@@ -1,7 +1,10 @@
 import pytest
 from django.contrib.auth import get_user_model
 
-from matchspecit.auths.serializers import MyTokenObtainPairSerializer, RegisterSerializer
+from matchspecit.auths.serializers import (
+    MyTokenObtainPairSerializer,
+    RegisterSerializer,
+)
 
 
 class TestMyTokenObtainPairSerializer:
