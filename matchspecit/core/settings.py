@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "drf_yasg",
     # Apps
     "matchspecit.project",
+    "matchspecit.technology",
 ]
 
 MIDDLEWARE = [

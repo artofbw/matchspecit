@@ -50,3 +50,5 @@ REST_FRAMEWORK = {
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ],
 }
+
+STACKEXCHANGE_API_KEY = os.environ.get("STACKEXCHANGE_API_KEY", "")

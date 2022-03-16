@@ -23,6 +23,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("auth/", include("matchspecit.auth.urls")),
     path("", include("matchspecit.project.urls")),
+    path("", include("matchspecit.technology.urls")),
 ]
 
 if settings.DEBUG:
