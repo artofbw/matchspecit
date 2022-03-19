@@ -4,6 +4,7 @@ import pytest
 from rest_framework.test import APIClient, APIRequestFactory
 
 from matchspecit.project.models import Project
+from matchspecit.technology.models import Technology
 
 
 @pytest.fixture
@@ -38,3 +39,11 @@ def create_project():
         return Project.objects.create(name="test name", **kwargs)
 
     return make_project
+
+
+@pytest.fixture
+def create_technology():
+    def make_technology():
+        return Technology.objects.create(name=str(uuid.uuid4()))
+
+    return make_technology
