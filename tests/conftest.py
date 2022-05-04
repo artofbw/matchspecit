@@ -1,4 +1,5 @@
 import uuid
+from unittest.mock import MagicMock
 
 import pytest
 from rest_framework.test import APIClient, APIRequestFactory
@@ -13,6 +14,11 @@ def api_client():
 
 
 @pytest.fixture
+def create_view():
+    return MagicMock()
+
+
+@pytest.fixture
 def api_request_factory():
     return APIRequestFactory()
 
@@ -20,6 +26,17 @@ def api_request_factory():
 @pytest.fixture
 def test_password():
     return "TestPassword"
+
+
+@pytest.fixture
+def create_technologies(db):
+    def make_technology():
+        Technology.objects.get_or_create(name="python")
+        Technology.objects.get_or_create(name="java")
+        Technology.objects.get_or_create(name="c++")
+        return Technology.objects.all()
+
+    return make_technology
 
 
 @pytest.fixture
