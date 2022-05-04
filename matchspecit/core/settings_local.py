@@ -49,6 +49,7 @@ REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ],
+    "TEST_REQUEST_DEFAULT_FORMAT": "json",  # Use application/json instead of multipart/form-data requests in tests.
 }
 
 STACKEXCHANGE_API_KEY = os.environ.get("STACKEXCHANGE_API_KEY", "")

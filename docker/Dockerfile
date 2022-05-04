@@ -10,7 +10,7 @@ WORKDIR /app
 
 # installing netcat (nc) since we are using that to listen to postgres server in entrypoint.sh
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends netcat && \
+    apt-get install -y --no-install-recommends netcat postgres && \
     apt-get autoremove -y && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*

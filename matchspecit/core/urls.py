@@ -24,6 +24,7 @@ urlpatterns = [
     path("auth/", include("matchspecit.auths.urls")),
     path("", include("matchspecit.project.urls")),
     path("", include("matchspecit.technology.urls")),
+    path("", include("matchspecit.user.urls")),
 ]
 
 if settings.DEBUG:
