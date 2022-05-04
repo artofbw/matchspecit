@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from matchspecit.technology.models import Technology
-from matchspecit.user.permissions import OwnProfilePermission, IsActive
+from matchspecit.user.permissions import IsActive, OwnProfilePermission
 from matchspecit.user.serializers import UserSerializer
 
 

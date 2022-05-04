@@ -7,10 +7,10 @@ class TestUserModel:
     def test_user_delete_set_active_and_matchable_to_false(self, create_user):
         user = create_user()
 
-        assert user.is_active == True
-        assert user.is_matchable == True
+        assert user.is_active
+        assert user.is_matchable
 
         user.delete()
 
-        assert user.is_active == False
-        assert user.is_matchable == False
+        assert not user.is_active
+        assert not user.is_matchable

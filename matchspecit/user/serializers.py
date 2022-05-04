@@ -12,8 +12,8 @@ class UserSerializer(serializers.ModelSerializer):
     technologies = TechnologySerializer(many=True)
 
     def update(self, instance, validated_data):
-        technologies = validated_data.pop('technologies', None)
-        instance.is_matchable = validated_data.get('is_matchable', instance.is_matchable)
+        technologies = validated_data.pop("technologies", None)
+        instance.is_matchable = validated_data.get("is_matchable", instance.is_matchable)
 
         instance.save()
 
@@ -21,9 +21,7 @@ class UserSerializer(serializers.ModelSerializer):
             instance.technologies.clear()
 
             for technology in technologies:
-                instance.technologies.add(
-                    Technology.objects.get(id=technology["id"], name=technology["name"])
-                )
+                instance.technologies.add(Technology.objects.get(id=technology["id"], name=technology["name"]))
 
         return instance
 

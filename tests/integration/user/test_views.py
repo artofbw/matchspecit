@@ -1,5 +1,4 @@
 import pytest
-from django.forms import model_to_dict
 from django.urls import reverse
 from rest_framework import status
 
@@ -17,7 +16,6 @@ class TestProjectDetail:
 
         assert response.status_code == status.HTTP_200_OK
         assert response.data == {'technologies': [], 'is_matchable': False}
-
 
     def test_user_is_matchable_set_to_true(self, api_client, create_user):
         url = reverse(self.url_namespace)

@@ -9,7 +9,7 @@ class TestIsActivePermission:
 
         permission = IsActive()
 
-        assert permission.has_permission(api_request_factory, view) == True
+        assert permission.has_permission(api_request_factory, view)
 
     def test_is_active_permission_when_user_is_not_active(self, create_user, api_request_factory, create_view):
         view = create_view()
@@ -19,4 +19,4 @@ class TestIsActivePermission:
 
         permission = IsActive()
 
-        assert permission.has_permission(api_request_factory, view) == False
+        assert not permission.has_permission(api_request_factory, view)
