@@ -18,18 +18,6 @@ class ObtainTokenPairView(TokenObtainPairView):
 
 
 class RegisterView(generics.CreateAPIView):
-    merge_data = {
-        'user': "user"
-    }
-    html_body = render_to_string("email/register_email_confirmation.html", merge_data)
-    message = EmailMultiAlternatives(
-       subject='Django HTML Email',
-       from_email=settings.EMAIL_HOST_USER,
-       to=[settings.EMAIL_HOST]
-    )
-    message.attach_alternative(html_body, "text/html")
-    message.send(fail_silently=False)
-
     queryset = User.objects.all()
     permission_classes = (AllowAny,)
     serializer_class = RegisterSerializer
