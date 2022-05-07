@@ -4,7 +4,6 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from matchspecit.core import settings
 from matchspecit.project.models import Project
 from matchspecit.project.serializers import ProjectSerializer
 
