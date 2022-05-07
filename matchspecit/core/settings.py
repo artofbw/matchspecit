@@ -134,11 +134,6 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # IMPORT LOCAL SETTINGS
-#mailtrap
-EMAIL_HOST = 'smtp.mailtrap.io'
-EMAIL_HOST_USER = '12dd9251daabcb'
-EMAIL_HOST_PASSWORD = '4f7dad900660da'
-EMAIL_PORT = '2525'
 
 try:
     from matchspecit.core.settings_local import *
