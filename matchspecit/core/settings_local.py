@@ -62,6 +62,6 @@ EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", "")
 EMAIL_PORT = os.environ.get("EMAIL_PORT", "")
 
 GRAPH_MODELS = {
-  "all_applications": True,
-  "group_models": True,
+    "all_applications": True,
+    "group_models": True,
 }
