@@ -16,151 +16,22 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css"/>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css"/>
     <!--<![endif]-->
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            padding: 0;
-        }
-
-        a[x-apple-data-detectors] {
-            color: inherit !important;
-            text-decoration: inherit !important;
-        }
-
-        #MessageViewBody a {
-            color: inherit;
-            text-decoration: none;
-        }
-
-        p {
-            line-height: inherit
-        }
-
-        @media (max-width: 720px) {
-            .icons-inner {
-                text-align: center;
-            }
-
-            .icons-inner td {
-                margin: 0 auto;
-            }
-
-            .row-content {
-                width: 100% !important;
-            }
-
-            .column .border {
-                display: none;
-            }
-
-            table {
-                table-layout: fixed !important;
-            }
-
-            .stack .column {
-                width: 100%;
-                display: block;
-            }
-        }
-    </style>
+    {% include "email/head.html" %}
 </head>
 <body style="margin: 0; background-color: #FFFFFF; padding: 0; -webkit-text-size-adjust: none; text-size-adjust: none;">
-<table border="0" cellpadding="0" cellspacing="0" class="nl-container" role="presentation"
-       style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #FFFFFF;" width="100%">
+<table border="0" cellpadding="0" cellspacing="0" class="nl-container mso_table" role="presentation">
     <tbody>
     <tr>
         <td>
-            <table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-1" role="presentation"
-                   style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #FFFFFF;" width="100%">
-                <tbody>
-                <tr>
-                    <td>
-                        <table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack"
-                               role="presentation"
-                               style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; color: #000000; width: 700px;"
-                               width="700">
-                            <tbody>
-                            <tr>
-                                <td class="column column-1"
-                                    style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; padding-top: 0px; padding-bottom: 0px; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;"
-                                    width="100%">
-                                    <div class="spacer_block" style="height:30px;line-height:30px;font-size:1px;"> 
-                                    </div>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-            <table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-2" role="presentation"
-                   style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
-                <tbody>
-                <tr>
-                    <td>
-                        <table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content"
-                               role="presentation"
-                               style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; color: #333; width: 700px;"
-                               width="700">
-                            <tbody>
-                            <tr>
-                                <td class="column column-1"
-                                    style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; padding-left: 20px; padding-right: 20px; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;"
-                                    width="50%">
-                                    <table border="0" cellpadding="0" cellspacing="0" class="image_block"
-                                           role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;"
-                                           width="100%">
-                                        <tr>
-                                            <td style="width:100%;padding-right:0px;padding-left:0px;padding-top:10px;padding-bottom:10px;">
-                                                <div style="line-height:10px">
-                                                    <p>MatchSpecIT</p>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                                <td class="column column-2"
-                                    style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;"
-                                    width="50%">
-                                    <table border="0" cellpadding="0" cellspacing="0" class="text_block"
-                                           role="presentation"
-                                           style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;"
-                                           width="100%">
-                                        <tr>
-                                            <td style="padding-bottom:15px;padding-left:10px;padding-right:10px;padding-top:25px;">
-                                                <div style="font-family: sans-serif">
-                                                    <div class="txtTinyMce-wrapper"
-                                                         style="font-size: 12px; mso-line-height-alt: 14.399999999999999px; color: #E3E3E3; line-height: 1.2; font-family: Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif;">
-                                                        <p style="margin: 0; font-size: 14px; text-align: right;"><span
-                                                                style="font-size:12px;">Find your dream project</span>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+            {% include "email/header.html" %}
             <table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-3" role="presentation"
-                   style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #FFFFFF; background-image: url('images/Bg_text_ani.gif'); background-position: top center; background-repeat: no-repeat;"
+                   style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #FFFFFF; background-position: top center; background-repeat: no-repeat;"
                    width="100%">
                 <tbody>
                 <tr>
                     <td>
-                        <table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack"
+                        <table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack main-table"
                                role="presentation"
-                               style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; color: #000000; width: 700px;"
                                width="700">
                             <tbody>
                             <tr>
@@ -185,14 +56,13 @@
                 </tbody>
             </table>
             <table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-4" role="presentation"
-                   style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #F4F4F4; background-image: url('images/bg_wave_1.png'); background-position: top center; background-repeat: repeat;"
+                   style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #F4F4F4; background-position: top center; background-repeat: repeat;"
                    width="100%">
                 <tbody>
                 <tr>
                     <td>
-                        <table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack"
+                        <table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack main-table"
                                role="presentation"
-                               style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; color: #000000; width: 700px;"
                                width="700">
                             <tbody>
                             <tr>
@@ -214,9 +84,8 @@
                 <tbody>
                 <tr>
                     <td>
-                        <table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack"
+                        <table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack main-table"
                                role="presentation"
-                               style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; color: #000000; width: 700px;"
                                width="700">
                             <tbody>
                             <tr>
@@ -234,7 +103,7 @@
                                                          style="font-size: 12px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; mso-line-height-alt: 14.399999999999999px; color: #555555; line-height: 1.2;">
                                                         <p style="margin: 0; font-size: 14px;"><strong><span
                                                                 style="font-size:46px;">Welcome, <span
-                                                                style="color:#3d3bee;font-size:46px;">{{ user }}</span>!</span></strong>
+                                                                style="color:#3d3bee;font-size:46px;">{{ username }}</span>!</span></strong>
                                                         </p>
                                                     </div>
                                                 </div>
@@ -251,7 +120,7 @@
                                                     <div class="txtTinyMce-wrapper"
                                                          style="font-size: 12px; mso-line-height-alt: 18px; color: #555555; line-height: 1.5; font-family: Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif;">
                                                         <p style="margin: 0; font-size: 12px;"><strong><span
-                                                                style="font-size:20px;">We are excited to welcome you to our portal. You can find here the greatest project for yourself </span></strong>
+                                                                style="font-size:20px;">Jesteśmy podeskcytowani powitaniem Ciebie na naszej platformie. Możesz tu znaleźć wymarzone projekty, kliknij przycisk poniżej i potwierdź swój adres email. </span></strong>
                                                         </p>
                                                     </div>
                                                 </div>
@@ -268,7 +137,7 @@
                                                     <div class="txtTinyMce-wrapper"
                                                          style="font-size: 12px; mso-line-height-alt: 18px; color: #7C7C7C; line-height: 1.5; font-family: Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif;">
                                                         <p style="margin: 0; font-size: 12px; mso-line-height-alt: 24px;">
-                                                            <span style="font-size:16px;">Fill your data and jump into looking for great project </span>
+                                                            <span style="font-size:16px;">Wypełnij swój profil znanymi technologiami i znajdź swój projekt marzeń!</span>
                                                         </p>
                                                         <p style="margin: 0; font-size: 12px; mso-line-height-alt: 18px;">
                                                              </p>
@@ -311,7 +180,7 @@
                                                         <p style="margin: 0; font-size: 14px;"><span
                                                                 style="background-color:#93f5ed;font-size:14px;"><span
                                                                 style="font-size:24px;background-color:#93f5ed;"><span
-                                                                style="font-size:24px;background-color:#93f5ed;"> List of features: </span></span></span>
+                                                                style="font-size:24px;background-color:#93f5ed;"> Lista funkcjonalności: </span></span></span>
                                                         </p>
                                                     </div>
                                                 </div>
@@ -329,13 +198,14 @@
                                                          style="font-size: 12px; font-family: Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif; mso-line-height-alt: 21.6px; color: #555555; line-height: 1.8;">
                                                         <ul style="font-size: 14px; line-height: 1.8; mso-line-height-alt: 21.6px;">
                                                             <li><span
-                                                                    style="font-size:16px;">Choose which projects <strong>are the best for yourself</strong>.</span>
+                                                                    style="font-size:16px;">Wybierz które projekty <strong>są najlepsze dla Ciebie</strong>.</span>
                                                             </li>
-                                                            <li><span style="font-size:16px;">Write opinion after all for project </span><br/><span
+                                                            <li><span
+                                                                    style="font-size:16px;">Napisz opinię o projekcie</span><br/>
                                                             </li>
-                                                            <li><span style="font-size:16px;">Choose which technology do you know best.</span>
+                                                            <li><span style="font-size:16px;">Wybierz z którymi technologiami chciałbyś pracować.</span>
                                                             </li>
-                                                            <li><span style="font-size:16px;">Wanna start your own project? Search for best specialist!</span>
+                                                            <li><span style="font-size:16px;">A może chcesz zaczać swój projekt? Znajdź najlepszych specjalistów!</span>
                                                             </li>
                                                         </ul>
                                                     </div>
@@ -356,9 +226,8 @@
                 <tbody>
                 <tr>
                     <td>
-                        <table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack"
+                        <table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack main-table"
                                role="presentation"
-                               style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; color: #000000; width: 700px;"
                                width="700">
                             <tbody>
                             <tr>
@@ -384,7 +253,7 @@
                                                         <span style="padding-left:45px;padding-right:45px;font-size:26px;display:inline-block;letter-spacing:normal;"><span
                                                                 style="font-size: 16px; line-height: 2; word-break: break-word; mso-line-height-alt: 32px;"><span
                                                                 data-mce-style="font-size: 26px; line-height: 52px;"
-                                                                style="font-size: 26px; line-height: 52px;"><strong>START NOW</strong></span></span></span>
+                                                                style="font-size: 26px; line-height: 52px;"><strong>Potwierdź adres email</strong></span></span></span>
                                                     </div>
                                                     <!--[if mso]></center></v:textbox></v:roundrect><![endif]-->
                                                 </div>
@@ -399,72 +268,7 @@
                 </tr>
                 </tbody>
             </table>
-            <table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-8" role="presentation"
-                   style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #F4F4F4; background-image: url('images/bg_wave_2.png'); background-position: top center; background-repeat: repeat;"
-                   width="100%">
-                <tbody>
-                <tr>
-                    <td>
-                        <table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack"
-                               role="presentation"
-                               style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; color: #000000; width: 700px;"
-                               width="700">
-                            <tbody>
-                            <tr>
-                                <td class="column column-1"
-                                    style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; padding-top: 5px; padding-bottom: 0px; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;"
-                                    width="100%">
-                                    <div class="spacer_block" style="height:90px;line-height:90px;font-size:1px;"> 
-                                    </div>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-            <table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-9" role="presentation"
-                   style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #FFFFFF;" width="100%">
-                <tbody>
-                <tr>
-                    <td>
-                        <table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack"
-                               role="presentation"
-                               style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #FFFFFF; color: #000000; width: 700px;"
-                               width="700">
-                            <tbody>
-                            <tr>
-                                <td class="column column-1"
-                                    style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; padding-top: 15px; padding-bottom: 35px; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;"
-                                    width="100%">
-                                    <table border="0" cellpadding="10" cellspacing="0" class="text_block"
-                                           role="presentation"
-                                           style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;"
-                                           width="100%">
-                                        <tr>
-                                            <td>
-                                                <div style="font-family: sans-serif">
-                                                    <div class="txtTinyMce-wrapper"
-                                                         style="font-size: 12px; mso-line-height-alt: 18px; color: #838383; line-height: 1.5; font-family: Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif;">
-                                                        <p style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 21px;">
-                                                            <span style="color:#000000;font-size:14px;"><strong>MatchSpecIT</strong></span>,
-                                                            Find your dream project</p>
-                                                        <p style="margin: 0; font-size: 14px; text-align: center;">
-                                                            Gdańsk, Poland   </p>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+            {% include "email/footer.html" %}
         </td>
     </tr>
     </tbody>
