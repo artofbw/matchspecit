@@ -29,6 +29,26 @@ services:
     ports:
       - "${DB_PORT}:${DB_PORT}"
 
+  celery:
+    build: .
+    command: celery worker --app=matchspecit --loglevel=info
+    environment:
+      - CELERY_BROKER=redis://redis:6379/0
+      - CELERY_BACKEND=redis://redis:6379/0
+    depends_on:
+      - backend
+      - redis
+
+  celery-beat:
+    build: .
+    command: celery -A matchspecit beat -l info
+    depends_on:
+      - backend
+      - redis
+
+  redis:
+    image: redis:5-alpine
+
 volumes:
   postgres_data:
   django_static_volume:

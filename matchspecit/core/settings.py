@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "matchspecit.auths",
     "matchspecit.technology",
     "matchspecit.user",
+    "matchspecit.match",
 ]
 
 MIDDLEWARE = [
