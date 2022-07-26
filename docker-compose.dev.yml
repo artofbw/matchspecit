@@ -6,6 +6,7 @@ services:
     build:
       context: .
       dockerfile: docker/Dockerfile
+    command: gunicorn matchspecit.core.wsgi:application -w 2 -b 0.0.0.0:8000 --reload
     ports:
       - "8000:8000"
     env_file:
@@ -30,7 +31,9 @@ services:
       - "${DB_PORT}:${DB_PORT}"
 
   celery:
-    build: .
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
     command: celery worker --app=matchspecit --loglevel=info
     environment:
       - CELERY_BROKER=redis://redis:6379/0
@@ -40,7 +43,9 @@ services:
       - redis
 
   celery-beat:
-    build: .
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
     command: celery -A matchspecit beat -l info
     depends_on:
       - backend
