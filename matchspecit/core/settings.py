@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "drf_yasg",
     "corsheaders",
     "django_rest_passwordreset",
+    "multiselectfield",
     # Apps
     "matchspecit.project",
     "matchspecit.auths",
