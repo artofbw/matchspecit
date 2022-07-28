@@ -41,7 +41,10 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='project',
             name='owner',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='user.user', verbose_name='użytkownik'),
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                to='user.user',
+                verbose_name='użytkownik'),
         ),
         migrations.AlterField(
             model_name='project',
