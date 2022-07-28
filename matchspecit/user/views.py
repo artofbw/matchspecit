@@ -9,7 +9,6 @@ from matchspecit.technology.models import Technology
 from matchspecit.user.permissions import IsActive, OwnProfilePermission
 from matchspecit.user.serializers import UserSerializer
 
-
 get_response_schema_dict = {
     "200": openapi.Response(
         description="Custom 200 response",

@@ -8,7 +8,6 @@ from rest_framework.views import APIView
 from matchspecit.technology.models import Technology
 from matchspecit.technology.serializers import TechnologySerializer
 
-
 response_schema_dict = {
     "200": openapi.Response(
         description="Custom 200 response",

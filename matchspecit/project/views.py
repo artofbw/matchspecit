@@ -9,7 +9,6 @@ from rest_framework.views import APIView
 from matchspecit.project.models import Project
 from matchspecit.project.serializers import ProjectSerializer
 
-
 DEFAULT_SUCCESS_RESPONSE = openapi.Response(
     description="Custom 200 response", examples={"application/json": {"name": "test name"}}
 )
