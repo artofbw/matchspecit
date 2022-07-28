@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "django_rest_passwordreset",
     "django_extensions",
+    "multiselectfield",
     # Apps
     "matchspecit.project",
     "matchspecit.auths",

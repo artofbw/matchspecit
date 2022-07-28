@@ -141,11 +141,7 @@ class ProjectDetail(APIView):
 
     @swagger_auto_schema(responses=delete_project_detail_response_schema_dict)
     def delete(self, request: Request, pk: int, format=None) -> Response:
-        """
-        :param request:
-        :param pk:
-        :return:
-        """
+        
         project = self.get_object(pk)
         project.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
