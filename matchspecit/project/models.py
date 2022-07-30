@@ -8,15 +8,15 @@ User = get_user_model()
 class Project(models.Model):
     title = models.CharField("title", max_length=50)
     description = models.TextField("description", max_length=574)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True, blank=True)
+    updated_at = models.DateTimeField(auto_now=True, blank=True)
     owner = models.ForeignKey(User, verbose_name="użytkownik", on_delete=models.CASCADE)
-    is_matchable = models.BooleanField("matchable", default=True)
-    is_finish = models.BooleanField("finish", default=False)
-    is_successful = models.BooleanField("successful", default=False)
-    is_deleted = models.BooleanField("deleted", default=False)
+    is_matchable = models.BooleanField("matchable", blank=True, default=True)
+    is_finish = models.BooleanField("finish", blank=True, default=False)
+    is_successful = models.BooleanField("successful", blank=True, default=False)
+    is_deleted = models.BooleanField("deleted", blank=True, default=False)
     technologies = models.ManyToManyField(Technology, related_name="projects2technologies")
-    image = models.ImageField(upload_to='files/covers', null=True)
+    image = models.ImageField(upload_to='files/covers', blank=True, null=True)
 
     def __str__(self):
         return self.title
