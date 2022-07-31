@@ -13,11 +13,24 @@ class TestProjectView:
     url = reverse("project_view")
 
     def test_project_post_return_project(self, api_client, create_user, test_password):
+        #import ipdb;ipdb.set_trace()
+
         expected_result = {"serializer.data": 200, "status": 201}
         user = create_user()
         api_client.force_authenticate(user=user)
 
-        response = api_client.post(self.url, data={"name": "test project"})
+        response = api_client.post(self.url, data={
+            "title": "string",
+            "description": "string",
+            "owner": user.pk,
+            "is_matchable": False,
+            "is_finish": False,
+            "is_successful": False,
+            "is_deleted": False,
+            "technologies": [1, 2],
+            "image": None
+        }
+                                   )
 
         assert response.status_code == status.HTTP_200_OK
         assert response.json() == expected_result
