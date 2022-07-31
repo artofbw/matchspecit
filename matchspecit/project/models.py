@@ -6,6 +6,7 @@ User = get_user_model()
 
 
 class Project(models.Model):
+    id = models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')
     title = models.CharField("title", max_length=50)
     description = models.TextField("description", max_length=574)
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
