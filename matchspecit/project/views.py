@@ -12,6 +12,7 @@ from matchspecit.project.serializers import ProjectSerializer
 DEFAULT_SUCCESS_RESPONSE = openapi.Response(
     description="Custom 200 response",
     examples={"application/json": {
+            "id": 39,
             "title": "test",
             "description": "test",
             "created_at": "2022-07-30T15:59:38.491271Z",
@@ -41,6 +42,7 @@ get_project_view_response_schema_dict = {
     "200": openapi.Response(
         description="Custom 200 response",
         examples={"application/json": [{
+                    "id": 39,
                     "title": "test",
                     "description": "test",
                     "created_at": "2022-07-30T13:44:43.177660Z",
@@ -58,6 +60,7 @@ get_project_view_response_schema_dict = {
                     "image": "/files/covers/image.png"
                 },
                 {
+                    "id": 40,
                     "title": "test2",
                     "description": "test2",
                     "created_at": "2022-07-30T14:16:13.249097Z",
