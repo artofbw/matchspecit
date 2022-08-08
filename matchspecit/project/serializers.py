@@ -1,4 +1,5 @@
 from rest_framework import serializers
+
 from matchspecit.project.models import Project
 
 
@@ -17,4 +18,5 @@ class ProjectSerializer(serializers.ModelSerializer):
             "is_successful",
             "is_deleted",
             "technologies",
-            "image"]
+            "image",
+        ]

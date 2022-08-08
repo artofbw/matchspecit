@@ -11,7 +11,8 @@ from matchspecit.project.serializers import ProjectSerializer
 
 DEFAULT_SUCCESS_RESPONSE = openapi.Response(
     description="Custom 200 response",
-    examples={"application/json": {
+    examples={
+        "application/json": {
             "id": 39,
             "title": "test",
             "description": "test",
@@ -22,12 +23,10 @@ DEFAULT_SUCCESS_RESPONSE = openapi.Response(
             "is_finish": False,
             "is_successful": False,
             "is_deleted": False,
-            "technologies": [
-                6
-            ],
-            "image": "/files/covers/image.png"
+            "technologies": [6],
+            "image": "/files/covers/image.png",
         }
-    }
+    },
 )
 
 DEFAULT_NOT_FOUND_RESPONSE = openapi.Response(
@@ -41,7 +40,9 @@ DEFAULT_AUTHENTICATION_RESPONSE = openapi.Response(
 get_project_view_response_schema_dict = {
     "200": openapi.Response(
         description="Custom 200 response",
-        examples={"application/json": [{
+        examples={
+            "application/json": [
+                {
                     "id": 39,
                     "title": "test",
                     "description": "test",
@@ -52,12 +53,8 @@ get_project_view_response_schema_dict = {
                     "is_finish": False,
                     "is_successful": False,
                     "is_deleted": False,
-                    "technologies": [
-                        3,
-                        4,
-                        5
-                    ],
-                    "image": "/files/covers/image.png"
+                    "technologies": [3, 4, 5],
+                    "image": "/files/covers/image.png",
                 },
                 {
                     "id": 40,
@@ -70,15 +67,12 @@ get_project_view_response_schema_dict = {
                     "is_finish": False,
                     "is_successful": False,
                     "is_deleted": False,
-                    "technologies": [
-                        74,
-                        75,
-                        76
-                    ],
-                    "image": "/files/covers/image_1.png"
-                }
+                    "technologies": [74, 75, 76],
+                    "image": "/files/covers/image_1.png",
+                },
             ]
-        })
+        },
+    )
 }
 
 post_project_view_response_schema_dict = {
@@ -97,7 +91,7 @@ post_project_view_request_schema_dict = openapi.Schema(
             type=openapi.TYPE_OBJECT,
             properties={
                 "id": openapi.Schema(type=openapi.TYPE_INTEGER, description="identifier"),
-            }
+            },
         ),
         "is_matchable": openapi.Schema(type=openapi.TYPE_BOOLEAN),
         "is_finish": openapi.Schema(type=openapi.TYPE_BOOLEAN),
@@ -107,13 +101,10 @@ post_project_view_request_schema_dict = openapi.Schema(
             type=openapi.TYPE_ARRAY,
             items=openapi.Schema(
                 type=openapi.TYPE_OBJECT,
-                properties={
-                    "id": openapi.Schema(type=openapi.TYPE_INTEGER, description="identifier")
-                },
+                properties={"id": openapi.Schema(type=openapi.TYPE_INTEGER, description="identifier")},
             ),
         ),
-        "image": openapi.Schema(type=openapi.TYPE_STRING)
-
+        "image": openapi.Schema(type=openapi.TYPE_STRING),
     },
 )
 
@@ -138,8 +129,8 @@ class ProjectView(APIView):
         return Response(serializer.data)
 
     @swagger_auto_schema(
-        responses=post_project_view_response_schema_dict,
-        request_body=post_project_view_request_schema_dict)
+        responses=post_project_view_response_schema_dict, request_body=post_project_view_request_schema_dict
+    )
     def post(self, request: Request) -> Response:
         """
         :param request:
