@@ -1,7 +1,6 @@
 import pytest
 from django.forms import model_to_dict
 from django.urls import reverse
-from rest_framework import status
 
 
 def project_to_dict(project):
