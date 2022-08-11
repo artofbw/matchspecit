@@ -4,7 +4,6 @@ from django.utils import timezone
 
 from matchspecit.project.models import Project
 
-
 User = get_user_model()
 
 
