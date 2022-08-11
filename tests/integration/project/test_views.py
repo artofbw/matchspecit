@@ -75,7 +75,6 @@ class TestProjectDetail:
         assert response.status_code == status.HTTP_404_NOT_FOUND
         assert response.json() == {"detail": "Not found."}
 
-
     def test_project_detail_put_by_incorrect_id_return_not_found(self, api_client, create_user, test_password):
         url = reverse(self.url_namespace, args=[9999])
         user = create_user()
@@ -87,7 +86,7 @@ class TestProjectDetail:
         assert response.json() == {"detail": "Not found."}
 
 
-"""    
+"""
     def test_project_detail_get_by_id_return_project(self, api_client, create_user, test_password, create_project):
         project = create_project()
         url = reverse(self.url_namespace, args=[project.id])
@@ -118,10 +117,8 @@ class TestProjectDetail:
         url = reverse(self.url_namespace, args=[project.id])
         user = create_user()
         api_client.force_authenticate(user=user)
-    
         response = api_client.put(url, data={"name": "test updated name"})
         project.refresh_from_db()
-    
         assert response.status_code == status.HTTP_200_OK
         assert response.json() == project_to_dict(project)
 """
