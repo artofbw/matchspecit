@@ -10,23 +10,36 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('project', '0001_initial'),
-        ('user', '0001_initial'),
+        ("project", "0001_initial"),
+        ("user", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Match',
+            name="Match",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('match_percent', models.DecimalField(decimal_places=2, max_digits=4, verbose_name='spasowanie procentowe')),
-                ('created_at', models.DateTimeField(default=django.utils.timezone.now, verbose_name='data utworzenia')),
-                ('project', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='project.project', verbose_name='projekt')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='user.user', verbose_name='użytkownik')),
+                ("id", models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                (
+                    "match_percent",
+                    models.DecimalField(decimal_places=2, max_digits=4, verbose_name="spasowanie procentowe"),
+                ),
+                ("created_at", models.DateTimeField(default=django.utils.timezone.now, verbose_name="data utworzenia")),
+                (
+                    "project",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="project.project", verbose_name="projekt"
+                    ),
+                ),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="user.user", verbose_name="użytkownik"
+                    ),
+                ),
             ],
         ),
         migrations.AddConstraint(
-            model_name='match',
-            constraint=models.UniqueConstraint(fields=('user', 'project'), name='unique match'),
+            model_name="match",
+            constraint=models.UniqueConstraint(fields=("user", "project"), name="unique match"),
         ),
     ]
