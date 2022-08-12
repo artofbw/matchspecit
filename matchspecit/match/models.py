@@ -15,3 +15,6 @@ class Match(models.Model):
 
     class Meta:
         constraints = [models.UniqueConstraint(fields=["user", "project"], name="unique match")]
+
+    def __str__(self):
+        return f"{self.user.username} - {self.project.title}"

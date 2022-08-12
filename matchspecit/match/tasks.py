@@ -4,7 +4,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 
 from celery import shared_task
-from psycopg2 import IntegrityError
+from django.db import IntegrityError
 
 from matchspecit.match.models import Match
 from matchspecit.project.models import Project
@@ -29,6 +29,6 @@ def match_user_with_project():
                     try:
                         Match.objects.create(user=user, project=project, match_percent=match_percent)
                         return {"status": "matched"}
-                    except IntegrityError:
+                    except Exception:
                         pass
     return None
