@@ -25,19 +25,19 @@
 
      docker-compose down
 
-#### Usunięcie wszystkicj nieużywanych kontenerów, sieci, obrazów, wolumenów
+#### Usunięcie wszystkich nieużywanych kontenerów, sieci, obrazów, wolumenów
 
      docker-system prune --all
 
 
 #### Testy
 
-    docker-compose -f docker-compose.dev.yml run backend pytest tests/ -s
+    docker-compose run backend pytest tests/ -s
 
 
 ####  Konsola dockerowa (bash)
 
-    docker-compose -f docker-compose.dev.yml exec backend bash
+    docker-compose exec backend bash
 
 ## Tworzenie diagramu bazy danych
 
