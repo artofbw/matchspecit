@@ -133,3 +133,5 @@ dmypy.json
 matchspecit/static
 
 files/covers
+
+.DS_Store
