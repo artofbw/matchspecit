@@ -1,7 +1,7 @@
 from django.http import Http404
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
-from rest_framework import permissions, status
+from rest_framework import permissions
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -9,7 +9,6 @@ from rest_framework.views import APIView
 from matchspecit.match.models import Match
 from matchspecit.match.serializers import MatchSerializer
 from matchspecit.project.models import Project
-
 
 DEFAULT_SUCCESS_RESPONSE = openapi.Response(
     description="Custom 200 response",
