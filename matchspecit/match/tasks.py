@@ -1,10 +1,8 @@
 from decimal import Decimal
 
+from celery import shared_task
 from django.conf import settings
 from django.contrib.auth import get_user_model
-
-from celery import shared_task
-from django.db import IntegrityError
 
 from matchspecit.match.models import Match
 from matchspecit.project.models import Project
