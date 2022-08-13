@@ -130,7 +130,7 @@ class ProjectView(APIView):
         serializer = ProjectSerializer(data=request.data, context={"request": request})
         if serializer.is_valid():
             serializer.save()
-            return Response({"serializer.data": 200, "status": status.HTTP_201_CREATED})
+            return Response(data=serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -140,13 +140,13 @@ get_project_detail_response_schema_dict = {
     "404": DEFAULT_NOT_FOUND_RESPONSE,
 }
 
-put_project_detail_response_schema_dict = {
+patch_project_detail_response_schema_dict = {
     "200": DEFAULT_SUCCESS_RESPONSE,
     "401": DEFAULT_AUTHENTICATION_RESPONSE,
     "404": DEFAULT_NOT_FOUND_RESPONSE,
 }
 
-put_project_detail_request_schema_dict = openapi.Schema(
+patch_project_detail_request_schema_dict = openapi.Schema(
     type=openapi.TYPE_OBJECT,
     properties={
         "name": openapi.Schema(type=openapi.TYPE_STRING),
@@ -191,16 +191,16 @@ class ProjectDetail(APIView):
         return Response(serializer.data)
 
     @swagger_auto_schema(
-        responses=put_project_detail_response_schema_dict, request_body=put_project_detail_request_schema_dict
+        responses=patch_project_detail_response_schema_dict, request_body=patch_project_detail_request_schema_dict
     )
-    def put(self, request: Request, pk: int, format=None) -> Response:
+    def patch(self, request: Request, pk: int, format=None) -> Response:
         """
         :param request:
         :param pk:
         :return:
         """
         project = self.get_object(pk)
-        serializer = ProjectSerializer(project, data=request.data)
+        serializer = ProjectSerializer(project, data=request.data, partial=True)
 
         if serializer.is_valid():
             serializer.save()
