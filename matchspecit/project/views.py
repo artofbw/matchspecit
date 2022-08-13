@@ -2,6 +2,7 @@ from django.http import Http404
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import permissions, status
+from rest_framework.parsers import MultiPartParser
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -107,6 +108,7 @@ class ProjectView(APIView):
     * Only authenticated users are able to access this view.
     """
 
+    parser_classes = [MultiPartParser]
     permission_classes = [permissions.IsAuthenticated]
 
     @swagger_auto_schema(responses=get_project_view_response_schema_dict)
