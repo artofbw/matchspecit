@@ -93,9 +93,7 @@ post_project_view_request_schema_dict = openapi.Schema(
         "is_deleted": openapi.Schema(type=openapi.TYPE_BOOLEAN),
         "technologies": openapi.Schema(
             type=openapi.TYPE_ARRAY,
-            items=openapi.Schema(
-                type=openapi.TYPE_INTEGER
-            ),
+            items=openapi.Schema(type=openapi.TYPE_INTEGER),
         ),
         "image": openapi.Schema(type=openapi.TYPE_STRING),
     },
@@ -129,7 +127,7 @@ class ProjectView(APIView):
         :param request:
         :return:
         """
-        serializer = ProjectSerializer(data=request.data, context={'request': request})
+        serializer = ProjectSerializer(data=request.data, context={"request": request})
         if serializer.is_valid():
             serializer.save()
             return Response({"serializer.data": 200, "status": status.HTTP_201_CREATED})

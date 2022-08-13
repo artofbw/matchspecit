@@ -32,4 +32,4 @@ class ProjectSerializer(serializers.ModelSerializer):
         ]
 
     def validate_owner(self, value):
-        return self.context['request'].user
+        return self.context["request"].user
