@@ -1,17 +1,21 @@
 version: "3.7"
 
 services:
-  django:
+  backend:
+    restart: always
     build:
       context: .
       dockerfile: docker/Dockerfile
-    volumes:
-      - django_static_volume:/app/static
-    expose:
-      - 8000
+    ports:
+      - "8000:8000"
     env_file:
       - .env
-    command: gunicorn matchspecit.core.wsgi:application --bind 0.0.0.0:8000
+    stdin_open: true
+    tty: true
+    volumes:
+      - .:/app
+    entrypoint: docker/entrypoint.sh
+    command: python manage.py runserver 0.0.0.0:8000
     depends_on:
       - db
   db:
@@ -24,13 +28,6 @@ services:
       POSTGRES_DB: $DB_DATABASE
     ports:
       - "${DB_PORT}:${DB_PORT}"
-  nginx:
-    restart: always
-    build: ./nginx
-    volumes:
-      - django_static_volume:/app/django_files/static
-    ports:
-      - 80:80
 
 volumes:
   postgres_data:
