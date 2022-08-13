@@ -41,24 +41,24 @@ patch_response_schema_dict = {
         description="Custom 200 response",
         examples={
             "application/json":
-                {
-                    "id": 75,
-                    "last_login": "2022-08-13T11:50:47Z",
-                    "username": "admin",
-                    "first_name": "",
-                    "last_name": "",
-                    "email": "admin@example.com",
-                    "is_active": True,
-                    "date_joined": "2022-08-13T11:00:10Z",
-                    "description": "",
-                    "is_matchable": True,
-                    "technologies": [
-                        6,
-                        7,
-                        8,
-                        9
-                    ]
-                }
+            {
+                "id": 75,
+                "last_login": "2022-08-13T11:50:47Z",
+                "username": "admin",
+                "first_name": "",
+                "last_name": "",
+                "email": "admin@example.com",
+                "is_active": True,
+                "date_joined": "2022-08-13T11:00:10Z",
+                "description": "",
+                "is_matchable": True,
+                "technologies": [
+                    6,
+                    7,
+                    8,
+                    9
+                ]
+            }
         }
     )
 }
