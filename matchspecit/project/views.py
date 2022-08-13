@@ -108,7 +108,6 @@ class ProjectView(APIView):
     * Only authenticated users are able to access this view.
     """
 
-    parser_classes = [MultiPartParser]
     permission_classes = [permissions.IsAuthenticated]
 
     @swagger_auto_schema(responses=get_project_view_response_schema_dict)
@@ -132,7 +131,7 @@ class ProjectView(APIView):
         serializer = ProjectSerializer(data=request.data, context={"request": request})
         if serializer.is_valid():
             serializer.save()
-            return Response({"serializer.data": 200, "status": status.HTTP_201_CREATED})
+            return Response(data=serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
