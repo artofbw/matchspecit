@@ -1,4 +1,4 @@
-from django.http import Http404, HttpResponseForbidden
+from django.http import Http404
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import permissions, status
@@ -171,8 +171,6 @@ class ProjectDetail(APIView):
 
     def check_owner(self, pk: int, request: Request):
         if request.user.id != Project.objects.get(pk=pk).owner_id:
-            print(request.user.id)
-            print(Project.objects.get(pk=pk).owner_id)
             return False
         return True
 
