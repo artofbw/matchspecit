@@ -1,5 +1,5 @@
-from django.contrib.auth.models import AbstractUser
 import django.contrib.auth.validators
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 from matchspecit.technology.models import Technology
@@ -20,15 +20,14 @@ class User(AbstractUser):
     email = models.EmailField(blank=True, max_length=254, verbose_name="email address")
     is_active = models.BooleanField(
                         default=True,
-                        help_text="Designates whether this user should be treated as active. Unselect this instead of deleting accounts.",
+                        help_text="Designates whether this user should be treated as active. Unselect this instead of "
+                                  "deleting accounts.",
                         verbose_name="active")
     date_joined = models.DateTimeField(default=django.utils.timezone.now, verbose_name="date joined")
 
     description = models.TextField("description", blank=True, null=True)
     is_matchable = models.BooleanField("matchable", default=True)
     technologies = models.ManyToManyField(Technology, related_name="users2technologies")
-
-
 
     def __str__(self):
         return self.username
@@ -38,4 +37,3 @@ class User(AbstractUser):
         self.is_matchable = False
 
         self.save()
-

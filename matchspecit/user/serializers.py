@@ -1,9 +1,6 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 
-from matchspecit.technology.models import Technology
-from matchspecit.technology.serializers import TechnologySerializer
-
 User = get_user_model()
 
 
