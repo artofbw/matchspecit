@@ -123,7 +123,7 @@ class MatchDetail(APIView):
         :return:
         """
         try:
-            return Project.objects.get(pk=pk)
+            return Match.objects.get(project__id=pk, user_id=self.request.user.id)
         except Project.DoesNotExist:
             raise Http404
 
@@ -134,6 +134,6 @@ class MatchDetail(APIView):
         :param pk:
         :return:
         """
-        project = self.get_object(pk)
+        project = self.get_object(pk).project
         serializer = MatchSerializer(project)
         return Response(serializer.data)
