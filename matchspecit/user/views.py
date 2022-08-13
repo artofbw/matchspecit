@@ -16,13 +16,11 @@ get_response_schema_dict = {
             "application/json":
             {
                 "id": 75,
-                "last_login": "2022-08-13T11:50:47Z",
                 "username": "admin",
                 "first_name": "",
                 "last_name": "",
                 "email": "admin@example.com",
                 "is_active": True,
-                "date_joined": "2022-08-13T11:00:10Z",
                 "description": "",
                 "is_matchable": True,
                 "technologies": [
@@ -43,13 +41,11 @@ patch_response_schema_dict = {
             "application/json":
             {
                 "id": 75,
-                "last_login": "2022-08-13T11:50:47Z",
                 "username": "admin",
                 "first_name": "",
                 "last_name": "",
                 "email": "admin@example.com",
                 "is_active": True,
-                "date_joined": "2022-08-13T11:00:10Z",
                 "description": "",
                 "is_matchable": True,
                 "technologies": [
@@ -114,18 +110,9 @@ class UserView(APIView):
         :param request:
         :return:
         """
-        data = {}
-
-        if technology_ids := request.data.get("technology_ids"):
-            technologies = Technology.objects.filter(id__in=technology_ids).values("id", "name")
-            data.update({"technologies": list(technologies)})
-
-        if "is_matchable" in request.data:
-            data.update({"is_matchable": request.data.get("is_matchable")})
-
         serializer = UserSerializer(
             instance=request.user,
-            data=data,
+            data=request.data,
             partial=True,
         )
 

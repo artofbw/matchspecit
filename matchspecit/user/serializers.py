@@ -9,13 +9,11 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = (
             "id",
-            "last_login",
             "username",
             "first_name",
             "last_name",
             "email",
             "is_active",
-            "date_joined",
             "description",
             "is_matchable",
             "technologies",
