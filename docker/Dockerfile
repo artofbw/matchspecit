@@ -20,8 +20,3 @@ COPY requirements /app/requirements
 COPY requirements.txt /app
 
 RUN pip install --upgrade pip -r requirements.txt
-
-# Make port 8000 available for the app
-EXPOSE 8000
-
-CMD gunicorn matchspecit.core.wsgi:application -w 2 -b 0.0.0.0:8000 --reload
