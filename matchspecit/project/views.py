@@ -1,4 +1,4 @@
-from django.http import Http404
+from django.http import Http404, HttpResponseForbidden
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import permissions, status
@@ -169,6 +169,13 @@ class ProjectDetail(APIView):
 
     permission_classes = [permissions.IsAuthenticated]
 
+    def check_owner(self, pk: int, request: Request):
+        if request.user.id != Project.objects.get(pk=pk).owner_id:
+            print(request.user.id)
+            print(Project.objects.get(pk=pk).owner_id)
+            return False
+        return True
+
     def get_object(self, pk: int) -> Response:
         """
         :param pk:
@@ -200,13 +207,16 @@ class ProjectDetail(APIView):
         :return:
         """
         project = self.get_object(pk)
-        serializer = ProjectSerializer(project, data=request.data)
+        if self.check_owner(pk, request):
+            serializer = ProjectSerializer(project, data=request.data)
 
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data)
 
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response(status=status.HTTP_403_FORBIDDEN)
 
     @swagger_auto_schema(responses=delete_project_detail_response_schema_dict)
     def delete(self, request: Request, pk: int, format=None) -> Response:
@@ -215,6 +225,9 @@ class ProjectDetail(APIView):
         :param pk:
         :return:
         """
-        project = self.get_object(pk)
-        project.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        if self.check_owner(pk, request):
+            project = self.get_object(pk)
+            project.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        else:
+            return Response(status=status.HTTP_403_FORBIDDEN)
