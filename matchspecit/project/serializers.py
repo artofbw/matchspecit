@@ -1,9 +1,19 @@
+from django.contrib.auth import get_user_model
 from rest_framework import serializers
 
 from matchspecit.project.models import Project
 
+User = get_user_model()
+
 
 class ProjectSerializer(serializers.ModelSerializer):
+    owner = serializers.PrimaryKeyRelatedField(
+        queryset=User.objects.filter(is_active=True),
+        required=False,
+        allow_null=True,
+        default=None,
+    )
+
     class Meta:
         model = Project
         fields = [
@@ -20,3 +30,6 @@ class ProjectSerializer(serializers.ModelSerializer):
             "technologies",
             "image",
         ]
+
+    def validate_owner(self, value):
+        return self.context["request"].user

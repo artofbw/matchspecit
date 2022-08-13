@@ -83,26 +83,17 @@ post_project_view_response_schema_dict = {
 
 post_project_view_request_schema_dict = openapi.Schema(
     type=openapi.TYPE_OBJECT,
-    required=["title", "description", "owner", "technologies"],
+    required=["title", "description", "technologies"],
     properties={
         "title": openapi.Schema(type=openapi.TYPE_STRING),
         "description": openapi.Schema(type=openapi.TYPE_STRING),
-        "owner": openapi.Schema(
-            type=openapi.TYPE_OBJECT,
-            properties={
-                "id": openapi.Schema(type=openapi.TYPE_INTEGER, description="identifier"),
-            },
-        ),
         "is_matchable": openapi.Schema(type=openapi.TYPE_BOOLEAN),
         "is_finish": openapi.Schema(type=openapi.TYPE_BOOLEAN),
         "is_successful": openapi.Schema(type=openapi.TYPE_BOOLEAN),
         "is_deleted": openapi.Schema(type=openapi.TYPE_BOOLEAN),
         "technologies": openapi.Schema(
             type=openapi.TYPE_ARRAY,
-            items=openapi.Schema(
-                type=openapi.TYPE_OBJECT,
-                properties={"id": openapi.Schema(type=openapi.TYPE_INTEGER, description="identifier")},
-            ),
+            items=openapi.Schema(type=openapi.TYPE_INTEGER),
         ),
         "image": openapi.Schema(type=openapi.TYPE_STRING),
     },
@@ -136,7 +127,7 @@ class ProjectView(APIView):
         :param request:
         :return:
         """
-        serializer = ProjectSerializer(data=request.data)
+        serializer = ProjectSerializer(data=request.data, context={"request": request})
         if serializer.is_valid():
             serializer.save()
             return Response({"serializer.data": 200, "status": status.HTTP_201_CREATED})

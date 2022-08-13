@@ -27,7 +27,7 @@
 
 #### Usunięcie wszystkich nieużywanych kontenerów, sieci, obrazów, wolumenów
 
-     docker-system prune --all
+     docker system prune --all
 
 
 #### Testy
