@@ -11,15 +11,15 @@ class TestProjectDetail:
         url = reverse(self.url_namespace)
         user = create_user()
         expected_result = {
-            'description': None,
-            'email': '',
-            'first_name': '',
-            'id': user.id,
-            'is_active': True,
-            'is_matchable': False,
-            'last_name': '',
-            'technologies': [],
-            'username': user.username,
+            "description": None,
+            "email": "",
+            "first_name": "",
+            "id": user.id,
+            "is_active": True,
+            "is_matchable": False,
+            "last_name": "",
+            "technologies": [],
+            "username": user.username,
         }
         api_client.force_authenticate(user=user)
 
@@ -32,15 +32,15 @@ class TestProjectDetail:
         url = reverse(self.url_namespace)
         user = create_user()
         expected_result = {
-            'description': None,
-            'email': '',
-            'first_name': '',
-            'id': user.id,
-            'is_active': True,
-            'is_matchable': True,
-            'last_name': '',
-            'technologies': [],
-            'username': user.username,
+            "description": None,
+            "email": "",
+            "first_name": "",
+            "id": user.id,
+            "is_active": True,
+            "is_matchable": True,
+            "last_name": "",
+            "technologies": [],
+            "username": user.username,
         }
         api_client.force_authenticate(user=user)
 
@@ -54,15 +54,15 @@ class TestProjectDetail:
         url = reverse(self.url_namespace)
         user = create_user()
         expected_result = {
-            'description': None,
-            'email': '',
-            'first_name': '',
-            'id': user.id,
-            'is_active': True,
-            'is_matchable': True,
-            'last_name': '',
-            'technologies': [technologies[0].id, technologies[1].id],
-            'username': user.username,
+            "description": None,
+            "email": "",
+            "first_name": "",
+            "id": user.id,
+            "is_active": True,
+            "is_matchable": True,
+            "last_name": "",
+            "technologies": [technologies[0].id, technologies[1].id],
+            "username": user.username,
         }
         api_client.force_authenticate(user=user)
 
@@ -77,15 +77,15 @@ class TestProjectDetail:
         user = create_user()
         user.technologies.add(technologies[0])
         expected_result = {
-            'description': None,
-            'email': '',
-            'first_name': '',
-            'id': user.id,
-            'is_active': True,
-            'is_matchable': True,
-            'last_name': '',
-            'technologies': [technologies[0].id],
-            'username': user.username,
+            "description": None,
+            "email": "",
+            "first_name": "",
+            "id": user.id,
+            "is_active": True,
+            "is_matchable": True,
+            "last_name": "",
+            "technologies": [technologies[0].id],
+            "username": user.username,
         }
         api_client.force_authenticate(user=user)
 

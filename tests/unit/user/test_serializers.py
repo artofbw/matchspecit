@@ -12,7 +12,7 @@ class TestUserSerializer:
         serializer = self.serializer(instance=user, data={})
 
         assert not serializer.is_valid()
-        assert set(serializer.errors.keys()) == {'username', 'technologies'}
+        assert set(serializer.errors.keys()) == {"username", "technologies"}
 
     def test_serializer_returns_updated_fields(self, create_user):
         user = create_user()
