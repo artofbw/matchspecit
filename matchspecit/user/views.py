@@ -5,7 +5,6 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from matchspecit.technology.models import Technology
 from matchspecit.user.permissions import IsActive, OwnProfilePermission
 from matchspecit.user.serializers import UserSerializer
 
@@ -13,8 +12,7 @@ get_response_schema_dict = {
     "200": openapi.Response(
         description="Custom 200 response",
         examples={
-            "application/json":
-            {
+            "application/json": {
                 "id": 75,
                 "username": "admin",
                 "first_name": "",
@@ -23,14 +21,9 @@ get_response_schema_dict = {
                 "is_active": True,
                 "description": "",
                 "is_matchable": True,
-                "technologies": [
-                    6,
-                    7,
-                    8,
-                    9
-                ]
+                "technologies": [6, 7, 8, 9],
             }
-        }
+        },
     )
 }
 
@@ -38,8 +31,7 @@ patch_response_schema_dict = {
     "200": openapi.Response(
         description="Custom 200 response",
         examples={
-            "application/json":
-            {
+            "application/json": {
                 "id": 75,
                 "username": "admin",
                 "first_name": "",
@@ -48,14 +40,9 @@ patch_response_schema_dict = {
                 "is_active": True,
                 "description": "",
                 "is_matchable": True,
-                "technologies": [
-                    6,
-                    7,
-                    8,
-                    9
-                ]
+                "technologies": [6, 7, 8, 9],
             }
-        }
+        },
     )
 }
 

@@ -14,11 +14,9 @@ class TestUserSerializer:
         assert not serializer.is_valid()
         assert set(serializer.errors.keys()) == {'username', 'technologies'}
 
-    def test_serializer_returns_updated_fields(self, create_user, create_technologies):
-        technologies = create_technologies()
+    def test_serializer_returns_updated_fields(self, create_user):
         user = create_user()
 
-        selected_technologies = [technologies[0]]
         data = {"is_matchable": True}
 
         serializer = self.serializer(instance=user, data=data)
