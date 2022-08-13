@@ -74,7 +74,10 @@ class Migration(migrations.Migration):
                         verbose_name="groups",
                     ),
                 ),
-                ("technologies", models.ManyToManyField(related_name="technologies", to="technology.Technology")),
+                (
+                    "technologies",
+                    models.ManyToManyField(related_name="users2technologies", to="technology.Technology"),
+                ),
                 (
                     "user_permissions",
                     models.ManyToManyField(
