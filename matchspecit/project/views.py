@@ -160,6 +160,28 @@ delete_project_detail_response_schema_dict = {
 }
 
 
+def check_owner(request: Request, project: Project):
+    """
+    :param request:
+    :param project:
+    :return:
+    """
+    if request.user.id != project.owner_id:
+        return False
+    return True
+
+
+def get_object(pk: int) -> Response:
+    """
+    :param pk:
+    :return:
+    """
+    try:
+        return Project.objects.get(pk=pk)
+    except Project.DoesNotExist:
+        raise Http404
+
+
 class ProjectDetail(APIView):
     """
     Retrieve, update or delete a project instance.
@@ -169,16 +191,6 @@ class ProjectDetail(APIView):
 
     permission_classes = [permissions.IsAuthenticated]
 
-    def get_object(self, pk: int) -> Response:
-        """
-        :param pk:
-        :return:
-        """
-        try:
-            return Project.objects.get(pk=pk)
-        except Project.DoesNotExist:
-            raise Http404
-
     @swagger_auto_schema(responses=get_project_detail_response_schema_dict)
     def get(self, request: Request, pk: int, format=None) -> Response:
         """
@@ -186,9 +198,12 @@ class ProjectDetail(APIView):
         :param pk:
         :return:
         """
-        project = self.get_object(pk)
-        serializer = ProjectSerializer(project)
-        return Response(serializer.data)
+        project = get_object(pk)
+        if check_owner(request, project):
+            serializer = ProjectSerializer(project)
+            return Response(serializer.data)
+        else:
+            return Response(status=status.HTTP_403_FORBIDDEN)
 
     @swagger_auto_schema(
         responses=patch_project_detail_response_schema_dict, request_body=patch_project_detail_request_schema_dict
@@ -199,14 +214,17 @@ class ProjectDetail(APIView):
         :param pk:
         :return:
         """
-        project = self.get_object(pk)
-        serializer = ProjectSerializer(project, data=request.data, partial=True)
+        project = get_object(pk)
+        if check_owner(request, project):
+            serializer = ProjectSerializer(project, data=request.data, partial=True)
 
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data)
 
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response(status=status.HTTP_403_FORBIDDEN)
 
     @swagger_auto_schema(responses=delete_project_detail_response_schema_dict)
     def delete(self, request: Request, pk: int, format=None) -> Response:
@@ -215,6 +233,9 @@ class ProjectDetail(APIView):
         :param pk:
         :return:
         """
-        project = self.get_object(pk)
-        project.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        project = get_object(pk)
+        if check_owner(request, project):
+            project.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        else:
+            return Response(status=status.HTTP_403_FORBIDDEN)
