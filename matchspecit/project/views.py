@@ -169,8 +169,8 @@ class ProjectDetail(APIView):
 
     permission_classes = [permissions.IsAuthenticated]
 
-    def check_owner(self, pk: int, request: Request):
-        if request.user.id != Project.objects.get(pk=pk).owner_id:
+    def check_owner(self, request: Request, project: Project):
+        if request.user.id != project.owner_id:
             return False
         return True
 
@@ -205,7 +205,7 @@ class ProjectDetail(APIView):
         :return:
         """
         project = self.get_object(pk)
-        if self.check_owner(pk, request):
+        if self.check_owner(request, project):
             serializer = ProjectSerializer(project, data=request.data)
 
             if serializer.is_valid():
@@ -223,8 +223,8 @@ class ProjectDetail(APIView):
         :param pk:
         :return:
         """
-        if self.check_owner(pk, request):
-            project = self.get_object(pk)
+        project = self.get_object(pk)
+        if self.check_owner(request, project):
             project.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)
         else:
