@@ -140,13 +140,13 @@ get_project_detail_response_schema_dict = {
     "404": DEFAULT_NOT_FOUND_RESPONSE,
 }
 
-put_project_detail_response_schema_dict = {
+put_and_patch_patch_project_detail_response_schema_dict = {
     "200": DEFAULT_SUCCESS_RESPONSE,
     "401": DEFAULT_AUTHENTICATION_RESPONSE,
     "404": DEFAULT_NOT_FOUND_RESPONSE,
 }
 
-put_project_detail_request_schema_dict = openapi.Schema(
+put_and_patch_project_detail_request_schema_dict = openapi.Schema(
     type=openapi.TYPE_OBJECT,
     required=["title", "description", "technologies"],
     properties={
@@ -217,7 +217,8 @@ class ProjectDetail(APIView):
             return Response(status=status.HTTP_403_FORBIDDEN)
 
     @swagger_auto_schema(
-        responses=put_project_detail_response_schema_dict, request_body=put_project_detail_request_schema_dict
+        responses=put_and_patch_patch_project_detail_response_schema_dict,
+        request_body=put_and_patch_project_detail_request_schema_dict,
     )
     def put(self, request: Request, pk: int, format=None) -> Response:
         """
@@ -228,6 +229,28 @@ class ProjectDetail(APIView):
         project = get_object(pk)
         if check_owner(request, project):
             serializer = ProjectSerializer(project, data=request.data, context={"request": request})
+
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data)
+
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response(status=status.HTTP_403_FORBIDDEN)
+
+    @swagger_auto_schema(
+        responses=put_and_patch_patch_project_detail_response_schema_dict,
+        request_body=put_and_patch_project_detail_request_schema_dict,
+    )
+    def patch(self, request: Request, pk: int, format=None) -> Response:
+        """
+        :param request:
+        :param pk:
+        :return:
+        """
+        project = get_object(pk)
+        if check_owner(request, project):
+            serializer = ProjectSerializer(project, data=request.data, partial=True, context={"request": request})
 
             if serializer.is_valid():
                 serializer.save()
