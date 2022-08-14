@@ -1,7 +1,7 @@
 from django.http import Http404
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
-from rest_framework import permissions
+from rest_framework import permissions, status
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -117,6 +117,16 @@ class MatchDetail(APIView):
 
     permission_classes = [permissions.IsAuthenticated]
 
+    def has_permission(self, user_id: int, match: Match):
+        """
+        :param user_id:
+        :param match:
+        :return:
+        """
+        if user_id != match.user.id:
+            return False
+        return True
+
     def get_object(self, pk: int) -> Response:
         """
         :param pk:
@@ -134,6 +144,9 @@ class MatchDetail(APIView):
         :param pk:
         :return:
         """
-        project = self.get_object(pk).project
-        serializer = MatchSerializer(project)
-        return Response(serializer.data)
+        match = self.get_object(pk)
+        if self.has_permission(self.request.user.id, match):
+            serializer = MatchSerializer(match.project)
+            return Response(serializer.data)
+        else:
+            return Response(status=status.HTTP_403_FORBIDDEN)
