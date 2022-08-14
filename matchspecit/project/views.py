@@ -116,7 +116,7 @@ class ProjectView(APIView):
         :return:
         """
         project = Project.objects.all()
-        serializer = ProjectSerializer(project, many=True)
+        serializer = ProjectSerializer(project, many=True, context={"request": request})
         return Response(serializer.data)
 
     @swagger_auto_schema(
@@ -211,7 +211,7 @@ class ProjectDetail(APIView):
         """
         project = get_object(pk)
         if check_owner(request, project):
-            serializer = ProjectSerializer(project)
+            serializer = ProjectSerializer(project, context={"request": request})
             return Response(serializer.data)
         else:
             return Response(status=status.HTTP_403_FORBIDDEN)
@@ -227,7 +227,7 @@ class ProjectDetail(APIView):
         """
         project = get_object(pk)
         if check_owner(request, project):
-            serializer = ProjectSerializer(project, data=request.data)
+            serializer = ProjectSerializer(project, data=request.data, context={"request": request})
 
             if serializer.is_valid():
                 serializer.save()
