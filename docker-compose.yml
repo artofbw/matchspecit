@@ -5,7 +5,7 @@ services:
     restart: always
     build:
       context: .
-      dockerfile: docker/Dockerfile
+      dockerfile: docker/Dockerfile.nginx
     command: python manage.py runserver 0.0.0.0:8000
     ports:
       - "8000:8000"
@@ -32,7 +32,7 @@ services:
   celery:
     build:
       context: .
-      dockerfile: docker/Dockerfile
+      dockerfile: docker/Dockerfile.nginx
     volumes:
       - .:/app
     command: celery -A matchspecit.core worker --loglevel=info
@@ -48,7 +48,7 @@ services:
   celery-beat:
     build:
       context: .
-      dockerfile: docker/Dockerfile
+      dockerfile: docker/Dockerfile.nginx
     volumes:
       - .:/app
     command: celery -A matchspecit.core beat -l info
