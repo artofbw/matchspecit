@@ -23,6 +23,10 @@ class Project(models.Model):
     def __str__(self):
         return self.title
 
+    @property
+    def match_percent(self):
+        return self.match_set.first().match_percent
+
     def delete(self):
         self.is_matchable = False
         self.is_deleted = True
