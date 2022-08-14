@@ -116,7 +116,7 @@ class ProjectView(APIView):
         :return:
         """
         project = Project.objects.all()
-        serializer = ProjectSerializer(project, many=True)
+        serializer = ProjectSerializer(project, many=True, context={"request": request})
         return Response(serializer.data)
 
     @swagger_auto_schema(
@@ -148,8 +148,19 @@ patch_project_detail_response_schema_dict = {
 
 patch_project_detail_request_schema_dict = openapi.Schema(
     type=openapi.TYPE_OBJECT,
+    required=["title", "description", "technologies"],
     properties={
-        "name": openapi.Schema(type=openapi.TYPE_STRING),
+        "title": openapi.Schema(type=openapi.TYPE_STRING),
+        "description": openapi.Schema(type=openapi.TYPE_STRING),
+        "is_matchable": openapi.Schema(type=openapi.TYPE_BOOLEAN),
+        "is_finish": openapi.Schema(type=openapi.TYPE_BOOLEAN),
+        "is_successful": openapi.Schema(type=openapi.TYPE_BOOLEAN),
+        "is_deleted": openapi.Schema(type=openapi.TYPE_BOOLEAN),
+        "technologies": openapi.Schema(
+            type=openapi.TYPE_ARRAY,
+            items=openapi.Schema(type=openapi.TYPE_INTEGER),
+        ),
+        "image": openapi.Schema(type=openapi.TYPE_STRING),
     },
 )
 
@@ -200,7 +211,7 @@ class ProjectDetail(APIView):
         """
         project = get_object(pk)
         if check_owner(request, project):
-            serializer = ProjectSerializer(project)
+            serializer = ProjectSerializer(project, context={"request": request})
             return Response(serializer.data)
         else:
             return Response(status=status.HTTP_403_FORBIDDEN)
@@ -216,7 +227,7 @@ class ProjectDetail(APIView):
         """
         project = get_object(pk)
         if check_owner(request, project):
-            serializer = ProjectSerializer(project, data=request.data, partial=True)
+            serializer = ProjectSerializer(project, data=request.data, partial=True, context={"request": request})
 
             if serializer.is_valid():
                 serializer.save()
