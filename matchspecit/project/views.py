@@ -148,8 +148,19 @@ put_project_detail_response_schema_dict = {
 
 put_project_detail_request_schema_dict = openapi.Schema(
     type=openapi.TYPE_OBJECT,
+    required=["title", "description", "technologies"],
     properties={
-        "name": openapi.Schema(type=openapi.TYPE_STRING),
+        "title": openapi.Schema(type=openapi.TYPE_STRING),
+        "description": openapi.Schema(type=openapi.TYPE_STRING),
+        "is_matchable": openapi.Schema(type=openapi.TYPE_BOOLEAN),
+        "is_finish": openapi.Schema(type=openapi.TYPE_BOOLEAN),
+        "is_successful": openapi.Schema(type=openapi.TYPE_BOOLEAN),
+        "is_deleted": openapi.Schema(type=openapi.TYPE_BOOLEAN),
+        "technologies": openapi.Schema(
+            type=openapi.TYPE_ARRAY,
+            items=openapi.Schema(type=openapi.TYPE_INTEGER),
+        ),
+        "image": openapi.Schema(type=openapi.TYPE_STRING),
     },
 )
 
