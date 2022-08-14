@@ -10,7 +10,6 @@ from matchspecit.match.models import Match
 from matchspecit.match.serializers import MatchSerializer
 from matchspecit.project.models import Project
 
-
 DEFAULT_SUCCESS_RESPONSE = openapi.Response(
     description="Custom 200 response",
     examples={
@@ -118,13 +117,23 @@ class MatchDetail(APIView):
 
     permission_classes = [permissions.IsAuthenticated]
 
+    def has_permission(self, user_id: int, match: Match):
+        """
+        :param user_id:
+        :param match:
+        :return:
+        """
+        if user_id != match.user.id:
+            return False
+        return True
+
     def get_object(self, pk: int) -> Response:
         """
         :param pk:
         :return:
         """
         try:
-            return Project.objects.get(pk=pk)
+            return Match.objects.get(project__id=pk, user_id=self.request.user.id)
         except Project.DoesNotExist:
             raise Http404
 
@@ -135,6 +144,9 @@ class MatchDetail(APIView):
         :param pk:
         :return:
         """
-        project = self.get_object(pk)
-        serializer = MatchSerializer(project)
-        return Response(serializer.data)
+        match = self.get_object(pk)
+        if self.has_permission(self.request.user.id, match):
+            serializer = MatchSerializer(match.project)
+            return Response(serializer.data)
+        else:
+            return Response(status=status.HTTP_403_FORBIDDEN)
