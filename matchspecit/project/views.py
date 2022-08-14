@@ -115,7 +115,7 @@ class ProjectView(APIView):
         :param request:
         :return:
         """
-        project = Project.objects.all()
+        project = Project.objects.filter(owner_id=request.user.id)
         serializer = ProjectSerializer(project, many=True, context={"request": request})
         return Response(serializer.data)
 
