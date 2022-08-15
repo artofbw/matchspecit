@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from matchspecit.match.models import Match
-from matchspecit.match.serializers import MatchSerializer
+from matchspecit.match.serializers import MatchProjectSerializer, MatchSerializer
 from matchspecit.project.models import Project
 
 DEFAULT_SUCCESS_RESPONSE = openapi.Response(
@@ -80,6 +80,28 @@ get_project_view_response_schema_dict = {
 }
 
 
+def check_owner_or_specialist(request: Request, match: Match):
+    """
+    :param request:
+    :param match:
+    :return:
+    """
+    if request.user.id != match.project.owner_id or request.user.id != match.user.id:
+        return False
+    return True
+
+
+def get_object(pk: int) -> Response:
+    """
+    :param pk:
+    :return:
+    """
+    try:
+        return Match.objects.get(pk=pk)
+    except Match.DoesNotExist:
+        raise Http404
+
+
 class MatchView(APIView):
     """
     Retrieve a matched project instance list.
@@ -106,6 +128,15 @@ get_project_detail_response_schema_dict = {
     "401": DEFAULT_AUTHENTICATION_RESPONSE,
     "404": DEFAULT_NOT_FOUND_RESPONSE,
 }
+
+
+patch_match_detail_request_schema_dict = openapi.Schema(
+    type=openapi.TYPE_OBJECT,
+    properties={
+        "project_owner_approved": openapi.Schema(type=openapi.TYPE_BOOLEAN),
+        "specialist_approved": openapi.Schema(type=openapi.TYPE_BOOLEAN),
+    },
+)
 
 
 class MatchDetail(APIView):
@@ -146,7 +177,26 @@ class MatchDetail(APIView):
         """
         match = self.get_object(pk)
         if self.has_permission(self.request.user.id, match):
-            serializer = MatchSerializer(match.project)
+            serializer = MatchProjectSerializer(match.project)
             return Response(serializer.data)
+        else:
+            return Response(status=status.HTTP_403_FORBIDDEN)
+
+    @swagger_auto_schema(request_body=patch_match_detail_request_schema_dict)
+    def patch(self, request: Request, pk: int, format=None) -> Response:
+        """
+        :param request:
+        :param pk:
+        :return:
+        """
+        match = get_object(pk)
+        if check_owner_or_specialist(request, match):
+            serializer = MatchSerializer(match.project, data=request.data, partial=True)
+
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data)
+
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         else:
             return Response(status=status.HTTP_403_FORBIDDEN)
