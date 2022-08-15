@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from matchspecit.match.models import Match
-from matchspecit.match.serializers import MatchSerializer
+from matchspecit.match.serializers import MatchProjectSerializer, MatchSerializer
 from matchspecit.project.models import Project
 
 DEFAULT_SUCCESS_RESPONSE = openapi.Response(
@@ -177,12 +177,12 @@ class MatchDetail(APIView):
         """
         match = self.get_object(pk)
         if self.has_permission(self.request.user.id, match):
-            serializer = MatchSerializer(match.project)
+            serializer = MatchProjectSerializer(match.project)
             return Response(serializer.data)
         else:
             return Response(status=status.HTTP_403_FORBIDDEN)
 
-    @swagger_auto_schema(responses=patch_match_detail_request_schema_dict)
+    @swagger_auto_schema(request_body=patch_match_detail_request_schema_dict)
     def patch(self, request: Request, pk: int, format=None) -> Response:
         """
         :param request:
@@ -191,7 +191,7 @@ class MatchDetail(APIView):
         """
         match = get_object(pk)
         if check_owner_or_specialist(request, match):
-            serializer = MatchSerializer(match, data=request.data, partial=True, context={"request": request})
+            serializer = MatchSerializer(match.project, data=request.data, partial=True)
 
             if serializer.is_valid():
                 serializer.save()
