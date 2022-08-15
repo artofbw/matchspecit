@@ -32,7 +32,7 @@ services:
   celery:
     build:
       context: .
-      dockerfile: docker/Dockerfile.nginx
+      dockerfile: docker/Dockerfile
     volumes:
       - .:/app
     command: celery -A matchspecit.core worker --loglevel=info
