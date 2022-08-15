@@ -78,3 +78,4 @@ CELERY_BEAT_SCHEDULE = {
 }
 
 MATCH_PERCENT = 0.5
+RESET_PASSWORD_SITE = "http://localhost:3000/reset-password"
