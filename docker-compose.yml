@@ -48,7 +48,7 @@ services:
   celery-beat:
     build:
       context: .
-      dockerfile: docker/Dockerfile.nginx
+      dockerfile: docker/Dockerfile
     volumes:
       - .:/app
     command: celery -A matchspecit.core beat -l info
