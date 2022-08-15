@@ -7,7 +7,7 @@ from matchspecit.technology.models import Technology
 class User(AbstractUser):
     description = models.TextField("description", blank=True, null=True)
     is_matchable = models.BooleanField("matchable", default=True)
-    technologies = models.ManyToManyField(Technology, related_name="technologies")
+    technologies = models.ManyToManyField(Technology, related_name="users2technologies")
 
     def __str__(self):
         return self.username

@@ -9,18 +9,35 @@
     język programowania: python 3.9.9
     baza danych: postgres 12.0
 
-#### Środowisko deweloperskie (instancja aplikacji)
+#### Uruchomienie aplikacji (instancja aplikacji)
 
-     docker-compose -f docker-compose.dev.yml up
-     
+     docker-compose up
+
+#### Uruchomienie aplikacji w tle (instancja aplikacji)
+
+     docker-compose up -d
+
+#### Uruchomienie aplikacji w tle z przebudowaniem obrazów (instancja aplikacji)
+
+     docker-compose up -d --build
+
+#### Zatrzymanie aplikacji
+
+     docker-compose down
+
+#### Usunięcie wszystkich nieużywanych kontenerów, sieci, obrazów, wolumenów
+
+     docker system prune --all
+
+
 #### Testy
 
-    docker-compose -f docker-compose.dev.yml run backend pytest tests/ -s
+    docker-compose run backend pytest tests/ -s
 
 
 ####  Konsola dockerowa (bash)
 
-    docker-compose -f docker-compose.dev.yml exec backend bash
+    docker-compose exec backend bash
 
 ## Tworzenie diagramu bazy danych
 

@@ -1,6 +1,7 @@
 import os
 from datetime import timedelta
 
+from celery.schedules import crontab
 from django.conf import settings
 
 settings.configure(ROOT_URLCONF=__name__)
@@ -65,3 +66,15 @@ GRAPH_MODELS = {
     "all_applications": True,
     "group_models": True,
 }
+
+CELERY_BROKER_URL = os.environ.get("CELERY_BROKER", "redis://redis:6379/0")
+CELERY_RESULT_BACKEND = os.environ.get("CELERY_BROKER", "redis://redis:6379/0")
+
+CELERY_BEAT_SCHEDULE = {
+    "match_user_with_project": {
+        "task": "matchspecit.match.tasks.match_user_with_project",
+        "schedule": crontab(minute="*/1"),
+    },
+}
+
+MATCH_PERCENT = 0.5
