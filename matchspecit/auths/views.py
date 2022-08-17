@@ -4,8 +4,9 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 from matchspecit.auths.serializers import (
+    ChangePasswordSerializer,
     MyTokenObtainPairSerializer,
-    RegisterSerializer, ChangePasswordSerializer,
+    RegisterSerializer,
 )
 
 User = get_user_model()
