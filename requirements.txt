@@ -2,3 +2,16 @@
 -r requirements/requirements-documentation.txt
 -r requirements/requirements-codestyle.txt
 -r requirements/requirements-packaging.txt
+
+pytest~=7.1.2
+pip~=20.2.3
+attrs~=21.4.0
+toml~=0.10.2
+wheel~=0.36.2
+py~=1.11.0
+Jinja2~=3.1.1
+setuptools~=49.2.1
+packaging~=21.3
+PyJWT~=2.3.0
+requests~=2.27.1
+PyJWT==1.7.1
