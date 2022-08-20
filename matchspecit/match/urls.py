@@ -1,6 +1,6 @@
 from django.urls import path
 
-from matchspecit.match.views import MatchDetail, MatchSpecialistView, MatchProjectView
+from matchspecit.match.views import MatchDetail, MatchProjectView, MatchSpecialistView
 
 urlpatterns = [
     path("match/specialist/", MatchSpecialistView.as_view(), name="match_view"),

@@ -7,27 +7,76 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from matchspecit.match.models import Match
-from matchspecit.match.serializers import MatchSerializer, MatchPatchSerializer
+from matchspecit.match.serializers import MatchPatchSerializer, MatchSerializer
 from matchspecit.project.models import Project
 
 DEFAULT_SUCCESS_RESPONSE = openapi.Response(
     description="Custom 200 response",
     examples={
-        "application/json": {
-            "id": 39,
-            "title": "test",
-            "description": "test",
-            "created_at": "2022-07-30T15:59:38.491271Z",
-            "updated_at": "2022-07-30T15:59:38.491289Z",
-            "owner": 2,
-            "is_matchable": True,
-            "is_finish": False,
-            "is_successful": False,
-            "is_deleted": False,
-            "technologies": [6],
-            "image": "/files/covers/image.png",
-            "match_percent": 1.0,
-        }
+        "application/json": [
+            {
+                "id": 72,
+                "user": {
+                    "id": 3,
+                    "username": "admin",
+                    "first_name": "",
+                    "last_name": "",
+                    "email": "admin@example.com",
+                    "is_active": True,
+                    "description": None,
+                    "is_matchable": True,
+                    "technologies": [],
+                },
+                "project": {
+                    "id": 3,
+                    "title": "test_specjalista",
+                    "description": "test",
+                    "created_at": "2022-08-20T14:18:05.310291Z",
+                    "updated_at": "2022-08-20T14:18:05.310309Z",
+                    "owner": 2,
+                    "is_matchable": True,
+                    "is_finish": False,
+                    "is_successful": False,
+                    "is_deleted": False,
+                    "technologies": [4, 5, 6],
+                    "image": None,
+                },
+                "match_percent": "1.50",
+                "project_owner_approved": None,
+                "specialist_approved": None,
+            },
+            {
+                "id": 73,
+                "user": {
+                    "id": 4,
+                    "username": "test2",
+                    "first_name": "",
+                    "last_name": "",
+                    "email": "",
+                    "is_active": True,
+                    "description": "",
+                    "is_matchable": True,
+                    "technologies": [1, 2, 3],
+                },
+                "project": {
+                    "id": 3,
+                    "title": "test_specjalista",
+                    "description": "test",
+                    "created_at": "2022-08-20T14:18:05.310291Z",
+                    "updated_at": "2022-08-20T14:18:05.310309Z",
+                    "owner": 2,
+                    "is_matchable": True,
+                    "is_finish": False,
+                    "is_successful": False,
+                    "is_deleted": False,
+                    "technologies": [4, 5, 6],
+                    "image": None,
+                },
+                "match_percent": "1.00",
+                "project_owner_approved": None,
+                "specialist_approved": None,
+            },
+        ]
     },
 )
 
@@ -118,7 +167,6 @@ class MatchSpecialistView(APIView):
         :return:
         """
         matches = Match.objects.filter(user_id=self.request.user.id)
-        projects = [match.project for match in matches]
         serializer = MatchSerializer(matches, many=True)
         return Response(serializer.data)
 
@@ -129,7 +177,6 @@ get_project_detail_response_schema_dict = {
     "404": DEFAULT_NOT_FOUND_RESPONSE,
 }
 
-
 patch_match_detail_request_schema_dict = openapi.Schema(
     type=openapi.TYPE_OBJECT,
     properties={
@@ -137,6 +184,7 @@ patch_match_detail_request_schema_dict = openapi.Schema(
         "specialist_approved": openapi.Schema(type=openapi.TYPE_BOOLEAN),
     },
 )
+
 
 class MatchProjectView(APIView):
     """
@@ -154,7 +202,6 @@ class MatchProjectView(APIView):
         :return:
         """
         matches = Match.objects.filter(project__id=pk)
-        projects = [match.project for match in matches]
         serializer = MatchSerializer(matches, many=True)
         return Response(serializer.data)
 
@@ -164,7 +211,6 @@ get_project_detail_response_schema_dict = {
     "401": DEFAULT_AUTHENTICATION_RESPONSE,
     "404": DEFAULT_NOT_FOUND_RESPONSE,
 }
-
 
 patch_match_detail_request_schema_dict = openapi.Schema(
     type=openapi.TYPE_OBJECT,

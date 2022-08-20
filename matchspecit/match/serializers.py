@@ -24,6 +24,7 @@ class MatchSerializer(serializers.ModelSerializer):
             "specialist_approved",
         ]
 
+
 class MatchPatchSerializer(serializers.ModelSerializer):
     class Meta:
         model = Match
