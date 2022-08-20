@@ -32,8 +32,6 @@ class MatchProjectSerializer(serializers.ModelSerializer):
             "is_deleted",
             "technologies",
             "image",
-            "project_owner_approved",
-            "specialist_approved",
             "match_percent",
         ]
 

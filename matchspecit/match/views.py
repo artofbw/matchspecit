@@ -119,7 +119,7 @@ class MatchView(APIView):
         """
         matches = Match.objects.filter(user_id=self.request.user.id)
         projects = [match.project for match in matches]
-        serializer = MatchSerializer(projects, many=True)
+        serializer = MatchProjectSerializer(projects, many=True)
         return Response(serializer.data)
 
 
