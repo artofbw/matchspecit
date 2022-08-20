@@ -13,11 +13,11 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name="match",
             name="project_owner_approved",
-            field=models.BooleanField(blank=True, default=None, verbose_name="akceptacja własciciela projektu"),
+            field=models.BooleanField(blank=True, null=True, default=None, verbose_name="akceptacja własciciela projektu"),
         ),
         migrations.AddField(
             model_name="match",
             name="specialist_approved",
-            field=models.BooleanField(blank=True, default=None, verbose_name="akceptacja specjalisty IT"),
+            field=models.BooleanField(blank=True, null=True, default=None, verbose_name="akceptacja specjalisty IT"),
         ),
     ]

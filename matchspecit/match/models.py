@@ -11,8 +11,8 @@ class Match(models.Model):
     user = models.ForeignKey(User, verbose_name="użytkownik", on_delete=models.CASCADE)
     project = models.ForeignKey(Project, verbose_name="projekt", on_delete=models.CASCADE)
     match_percent = models.DecimalField(max_digits=4, decimal_places=2, verbose_name="spasowanie procentowe")
-    project_owner_approved = models.BooleanField("akceptacja własciciela projektu", blank=True, default=None)
-    specialist_approved = models.BooleanField("akceptacja specjalisty IT", blank=True, default=None)
+    project_owner_approved = models.BooleanField("akceptacja własciciela projektu", blank=True, null=True, default=None)
+    specialist_approved = models.BooleanField("akceptacja specjalisty IT", blank=True, null=True, default=None)
     created_at = models.DateTimeField("data utworzenia", default=timezone.now)
 
     class Meta:
