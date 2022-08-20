@@ -166,7 +166,7 @@ class MatchSpecialistView(APIView):
         :param request:
         :return:
         """
-        matches = Match.objects.filter(user_id=self.request.user.id)
+        matches = Match.objects.filter(user_id=self.request.user.id).exclude(specialist_approved__isnull=False)
         serializer = MatchSerializer(matches, many=True)
         return Response(serializer.data)
 
@@ -184,6 +184,30 @@ patch_match_detail_request_schema_dict = openapi.Schema(
         "specialist_approved": openapi.Schema(type=openapi.TYPE_BOOLEAN),
     },
 )
+
+
+class MatchSpecialistMatchedView(APIView):
+    """
+    Retrieve a matched project instance list.
+
+    * Only authenticated users are able to access this view.
+    """
+
+    permission_classes = [permissions.IsAuthenticated]
+
+    @swagger_auto_schema(responses=get_project_view_response_schema_dict)
+    def get(self, request: Request) -> Response:
+        """
+        :param request:
+        :return:
+        """
+        matches = (
+            Match.objects.filter(user_id=self.request.user.id)
+            .filter(specialist_approved=True)
+            .filter(project_owner_approved=True)
+        )
+        serializer = MatchSerializer(matches, many=True)
+        return Response(serializer.data)
 
 
 class MatchProjectView(APIView):
@@ -201,24 +225,32 @@ class MatchProjectView(APIView):
         :param request:
         :return:
         """
-        matches = Match.objects.filter(project__id=pk)
+        matches = Match.objects.filter(project__id=pk).exclude(project_owner_approved__isnull=False)
         serializer = MatchSerializer(matches, many=True)
         return Response(serializer.data)
 
 
-get_project_detail_response_schema_dict = {
-    "200": DEFAULT_SUCCESS_RESPONSE,
-    "401": DEFAULT_AUTHENTICATION_RESPONSE,
-    "404": DEFAULT_NOT_FOUND_RESPONSE,
-}
+class MatchProjectMatchedView(APIView):
+    """
+    Retrieve a matched project instance list.
 
-patch_match_detail_request_schema_dict = openapi.Schema(
-    type=openapi.TYPE_OBJECT,
-    properties={
-        "project_owner_approved": openapi.Schema(type=openapi.TYPE_BOOLEAN),
-        "specialist_approved": openapi.Schema(type=openapi.TYPE_BOOLEAN),
-    },
-)
+    * Only authenticated users are able to access this view.
+    """
+
+    permission_classes = [permissions.IsAuthenticated]
+
+    @swagger_auto_schema(responses=get_project_view_response_schema_dict)
+    def get(self, request: Request, pk: int) -> Response:
+        """
+        :param request:
+        :param pk:
+        :return:
+        """
+        matches = (
+            Match.objects.filter(project__id=pk).filter(specialist_approved=True).filter(project_owner_approved=True)
+        )
+        serializer = MatchSerializer(matches, many=True)
+        return Response(serializer.data)
 
 
 class MatchDetail(APIView):
