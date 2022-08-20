@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from matchspecit.match.models import Match
-from matchspecit.match.serializers import MatchProjectSerializer, MatchSerializer
+from matchspecit.match.serializers import MatchSerializer, MatchPatchSerializer
 from matchspecit.project.models import Project
 
 DEFAULT_SUCCESS_RESPONSE = openapi.Response(
@@ -102,7 +102,7 @@ def get_object(pk: int) -> Response:
         raise Http404
 
 
-class MatchView(APIView):
+class MatchSpecialistView(APIView):
     """
     Retrieve a matched project instance list.
 
@@ -119,7 +119,43 @@ class MatchView(APIView):
         """
         matches = Match.objects.filter(user_id=self.request.user.id)
         projects = [match.project for match in matches]
-        serializer = MatchProjectSerializer(projects, many=True)
+        serializer = MatchSerializer(matches, many=True)
+        return Response(serializer.data)
+
+
+get_project_detail_response_schema_dict = {
+    "200": DEFAULT_SUCCESS_RESPONSE,
+    "401": DEFAULT_AUTHENTICATION_RESPONSE,
+    "404": DEFAULT_NOT_FOUND_RESPONSE,
+}
+
+
+patch_match_detail_request_schema_dict = openapi.Schema(
+    type=openapi.TYPE_OBJECT,
+    properties={
+        "project_owner_approved": openapi.Schema(type=openapi.TYPE_BOOLEAN),
+        "specialist_approved": openapi.Schema(type=openapi.TYPE_BOOLEAN),
+    },
+)
+
+class MatchProjectView(APIView):
+    """
+    Retrieve a matched project instance list.
+
+    * Only authenticated users are able to access this view.
+    """
+
+    permission_classes = [permissions.IsAuthenticated]
+
+    @swagger_auto_schema(responses=get_project_view_response_schema_dict)
+    def get(self, request: Request, pk: int) -> Response:
+        """
+        :param request:
+        :return:
+        """
+        matches = Match.objects.filter(project__id=pk)
+        projects = [match.project for match in matches]
+        serializer = MatchSerializer(matches, many=True)
         return Response(serializer.data)
 
 
@@ -177,7 +213,7 @@ class MatchDetail(APIView):
         """
         match = self.get_object(pk)
         if self.has_permission(self.request.user.id, match):
-            serializer = MatchProjectSerializer(match.project)
+            serializer = MatchSerializer(match.project)
             return Response(serializer.data)
         else:
             return Response(status=status.HTTP_403_FORBIDDEN)
@@ -191,7 +227,7 @@ class MatchDetail(APIView):
         """
         match = get_object(pk)
         if check_owner_or_specialist(request, match):
-            serializer = MatchSerializer(match.project, data=request.data, partial=True)
+            serializer = MatchPatchSerializer(match.project, data=request.data, partial=True)
 
             if serializer.is_valid():
                 serializer.save()

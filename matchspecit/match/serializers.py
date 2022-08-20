@@ -2,41 +2,29 @@ from django.contrib.auth import get_user_model
 from rest_framework import serializers
 
 from matchspecit.match.models import Match
-from matchspecit.project.models import Project
+from matchspecit.project.serializers import ProjectSerializer
+from matchspecit.user.serializers import UserSerializer
 
 User = get_user_model()
 
 
-class MatchProjectSerializer(serializers.ModelSerializer):
-    owner = serializers.PrimaryKeyRelatedField(
-        queryset=User.objects.filter(is_active=True),
-        required=False,
-        allow_null=True,
-        default=None,
-    )
-    match_percent = serializers.FloatField(min_value=0, max_value=1)
+class MatchSerializer(serializers.ModelSerializer):
+    user = UserSerializer()
+    project = ProjectSerializer()
 
     class Meta:
-        model = Project
+        model = Match
         depth = 1
         fields = [
             "id",
-            "title",
-            "description",
-            "created_at",
-            "updated_at",
-            "owner",
-            "is_matchable",
-            "is_finish",
-            "is_successful",
-            "is_deleted",
-            "technologies",
-            "image",
+            "user",
+            "project",
             "match_percent",
+            "project_owner_approved",
+            "specialist_approved",
         ]
 
-
-class MatchSerializer(serializers.ModelSerializer):
+class MatchPatchSerializer(serializers.ModelSerializer):
     class Meta:
         model = Match
         fields = [
