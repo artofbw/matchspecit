@@ -8,7 +8,6 @@ from rest_framework.views import APIView
 
 from matchspecit.match.models import Match
 from matchspecit.match.serializers import MatchPatchSerializer, MatchSerializer
-from matchspecit.project.models import Project
 
 DEFAULT_SUCCESS_RESPONSE = openapi.Response(
     description="Custom 200 response",
@@ -104,7 +103,7 @@ get_project_view_response_schema_dict = {
                         "is_active": True,
                         "description": None,
                         "is_matchable": True,
-                        "technologies": []
+                        "technologies": [],
                     },
                     "project": {
                         "id": 3,
@@ -117,16 +116,12 @@ get_project_view_response_schema_dict = {
                         "is_finish": False,
                         "is_successful": False,
                         "is_deleted": False,
-                        "technologies": [
-                            4,
-                            5,
-                            6
-                        ],
-                        "image": None
+                        "technologies": [4, 5, 6],
+                        "image": None,
                     },
                     "match_percent": "1.50",
                     "project_owner_approved": None,
-                    "specialist_approved": None
+                    "specialist_approved": None,
                 },
                 {
                     "id": 73,
@@ -139,11 +134,7 @@ get_project_view_response_schema_dict = {
                         "is_active": True,
                         "description": "",
                         "is_matchable": True,
-                        "technologies": [
-                            1,
-                            2,
-                            3
-                        ]
+                        "technologies": [1, 2, 3],
                     },
                     "project": {
                         "id": 3,
@@ -156,32 +147,28 @@ get_project_view_response_schema_dict = {
                         "is_finish": False,
                         "is_successful": False,
                         "is_deleted": False,
-                        "technologies": [
-                            4,
-                            5,
-                            6
-                        ],
-                        "image": None
+                        "technologies": [4, 5, 6],
+                        "image": None,
                     },
                     "match_percent": "1.00",
                     "project_owner_approved": None,
-                    "specialist_approved": None
-                }
+                    "specialist_approved": None,
+                },
             ]
         },
     )
 }
 
 
-def check_owner_or_specialist(request: Request, match: Match):
+def check_owner_or_specialist(user_id: int, match: Match):
     """
-    :param request:
+    :param user_id:
     :param match:
     :return:
     """
-    if request.user.id != match.project.owner_id or request.user.id != match.user.id:
-        return False
-    return True
+    if user_id == match.project.owner_id or user_id == match.user_id:
+        return True
+    return False
 
 
 def get_object(pk: int) -> Response:
@@ -297,17 +284,6 @@ class MatchProjectMatchedView(APIView):
         return Response(serializer.data)
 
 
-def has_permission(user_id: int, match: Match):
-    """
-    :param user_id:
-    :param match:
-    :return:
-    """
-    if user_id != match.user_id or user_id != match.project.owner:
-        return True
-    return True
-
-
 class MatchDetail(APIView):
     """
     Retrieve a matched project instance.
@@ -325,7 +301,7 @@ class MatchDetail(APIView):
         :return:
         """
         match = get_object(pk)
-        if has_permission(request.user, match):
+        if check_owner_or_specialist(request.user.id, match):
             serializer = MatchSerializer()
             return Response(serializer.data)
         else:
@@ -339,7 +315,7 @@ class MatchDetail(APIView):
         :return:
         """
         match = get_object(pk)
-        if check_owner_or_specialist(request, match):
+        if check_owner_or_specialist(request.user.id, match):
             serializer = MatchPatchSerializer(match.project, data=request.data, partial=True)
 
             if serializer.is_valid():
