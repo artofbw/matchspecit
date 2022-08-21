@@ -1,12 +1,13 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 
+from matchspecit.match.models import Match
 from matchspecit.project.models import Project
 
 User = get_user_model()
 
 
-class MatchSerializer(serializers.ModelSerializer):
+class MatchProjectSerializer(serializers.ModelSerializer):
     owner = serializers.PrimaryKeyRelatedField(
         queryset=User.objects.filter(is_active=True),
         required=False,
@@ -32,4 +33,13 @@ class MatchSerializer(serializers.ModelSerializer):
             "technologies",
             "image",
             "match_percent",
+        ]
+
+
+class MatchSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Match
+        fields = [
+            "project_owner_approved",
+            "specialist_approved",
         ]

@@ -1,6 +1,6 @@
 from django.contrib.auth import get_user_model
 from rest_framework import generics, views, status
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework_simplejwt.views import TokenObtainPairView
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
@@ -14,8 +14,10 @@ from .utils import Util
 
 
 from matchspecit.auths.serializers import (
+    ChangePasswordSerializer,
     MyTokenObtainPairSerializer,
-    RegisterSerializer, EmailVerificationSerializer,
+    RegisterSerializer,
+    EmailVerificationSerializer,
 )
 
 User = get_user_model()
@@ -70,3 +72,9 @@ class VerifyEmail(views.APIView):
             return Response({'error': 'Activation Expired'}, status=status.HTTP_400_BAD_REQUEST)
         except jwt.exceptions.DecodeError as identifier:
             return Response({'error': 'Invalid token'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ChangePasswordView(generics.UpdateAPIView):
+    queryset = User.objects.all()
+    permission_classes = (IsAuthenticated,)
+    serializer_class = ChangePasswordSerializer

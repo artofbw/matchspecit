@@ -1,7 +1,14 @@
 from django.urls import include, path
 from rest_framework_simplejwt.views import TokenRefreshView
 
-from matchspecit.auths.views import ObtainTokenPairView, RegisterView, VerifyEmail
+from matchspecit.auths.views import (
+    ChangePasswordView,
+    ObtainTokenPairView,
+    RegisterView,
+    ObtainTokenPairView,
+    RegisterView,
+    VerifyEmail
+)
 
 urlpatterns = [
     path("login/", ObtainTokenPairView.as_view(), name="token_obtain_pair"),
