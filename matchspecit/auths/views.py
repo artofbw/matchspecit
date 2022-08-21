@@ -41,9 +41,7 @@ class RegisterView(generics.GenericAPIView):
         user_data = serializer.data
         user = User.objects.get(email=user_data["email"])
         token = RefreshToken.for_user(user).access_token
-        current_site = get_current_site(request).domain
-        relative_link = reverse("email-verify")
-        url = "http://" + current_site + relative_link + "?token=" + str(token)
+        url = settings.FRONTEND_SITE + "signin?token=" + str(token)
         context = {
             "url": url,
             "username": user.username,
