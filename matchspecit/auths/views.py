@@ -12,7 +12,6 @@ from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.sites.shortcuts import get_current_site
 from django.urls import reverse
-from .utils import Util
 
 from matchspecit.auths.serializers import (
     ChangePasswordSerializer,
