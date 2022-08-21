@@ -17,4 +17,5 @@ class UserSerializer(serializers.ModelSerializer):
             "description",
             "is_matchable",
             "technologies",
+            "image",
         )
