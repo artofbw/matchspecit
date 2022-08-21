@@ -5,9 +5,7 @@ from matchspecit.auths.views import (
     ChangePasswordView,
     ObtainTokenPairView,
     RegisterView,
-    ObtainTokenPairView,
-    RegisterView,
-    VerifyEmail
+    VerifyEmail,
 )
 
 urlpatterns = [
