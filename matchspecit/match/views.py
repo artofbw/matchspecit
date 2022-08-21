@@ -307,7 +307,7 @@ class MatchDetail(APIView):
         """
         match = get_object(pk)
         if check_owner_or_specialist(request.user.id, match):
-            serializer = MatchSerializer()
+            serializer = MatchSerializer(match)
             return Response(serializer.data)
         else:
             return Response(status=status.HTTP_403_FORBIDDEN)
