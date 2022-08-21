@@ -94,35 +94,79 @@ get_project_view_response_schema_dict = {
         examples={
             "application/json": [
                 {
-                    "id": 39,
-                    "title": "test",
-                    "description": "test",
-                    "created_at": "2022-07-30T13:44:43.177660Z",
-                    "updated_at": "2022-07-30T14:12:36.485120Z",
-                    "owner": 1,
-                    "is_matchable": True,
-                    "is_finish": False,
-                    "is_successful": False,
-                    "is_deleted": False,
-                    "technologies": [3, 4, 5],
-                    "image": "/files/covers/image.png",
-                    "match_percent": 1.0,
+                    "id": 72,
+                    "user": {
+                        "id": 3,
+                        "username": "admin",
+                        "first_name": "",
+                        "last_name": "",
+                        "email": "admin@example.com",
+                        "is_active": True,
+                        "description": None,
+                        "is_matchable": True,
+                        "technologies": []
+                    },
+                    "project": {
+                        "id": 3,
+                        "title": "test_specjalista",
+                        "description": "test",
+                        "created_at": "2022-08-20T14:18:05.310291Z",
+                        "updated_at": "2022-08-20T14:18:05.310309Z",
+                        "owner": 2,
+                        "is_matchable": True,
+                        "is_finish": False,
+                        "is_successful": False,
+                        "is_deleted": False,
+                        "technologies": [
+                            4,
+                            5,
+                            6
+                        ],
+                        "image": None
+                    },
+                    "match_percent": "1.50",
+                    "project_owner_approved": None,
+                    "specialist_approved": None
                 },
                 {
-                    "id": 40,
-                    "title": "test2",
-                    "description": "test2",
-                    "created_at": "2022-07-30T14:16:13.249097Z",
-                    "updated_at": "2022-07-30T14:16:13.249117Z",
-                    "owner": 1,
-                    "is_matchable": True,
-                    "is_finish": False,
-                    "is_successful": False,
-                    "is_deleted": False,
-                    "technologies": [74, 75, 76],
-                    "image": "/files/covers/image_1.png",
-                    "match_percent": 1.0,
-                },
+                    "id": 73,
+                    "user": {
+                        "id": 4,
+                        "username": "test2",
+                        "first_name": "",
+                        "last_name": "",
+                        "email": "",
+                        "is_active": True,
+                        "description": "",
+                        "is_matchable": True,
+                        "technologies": [
+                            1,
+                            2,
+                            3
+                        ]
+                    },
+                    "project": {
+                        "id": 3,
+                        "title": "test_specjalista",
+                        "description": "test",
+                        "created_at": "2022-08-20T14:18:05.310291Z",
+                        "updated_at": "2022-08-20T14:18:05.310309Z",
+                        "owner": 2,
+                        "is_matchable": True,
+                        "is_finish": False,
+                        "is_successful": False,
+                        "is_deleted": False,
+                        "technologies": [
+                            4,
+                            5,
+                            6
+                        ],
+                        "image": None
+                    },
+                    "match_percent": "1.00",
+                    "project_owner_approved": None,
+                    "specialist_approved": None
+                }
             ]
         },
     )
@@ -253,6 +297,17 @@ class MatchProjectMatchedView(APIView):
         return Response(serializer.data)
 
 
+def has_permission(user_id: int, match: Match):
+    """
+    :param user_id:
+    :param match:
+    :return:
+    """
+    if user_id != match.user_id or user_id != match.project.owner:
+        return True
+    return True
+
+
 class MatchDetail(APIView):
     """
     Retrieve a matched project instance.
@@ -262,26 +317,6 @@ class MatchDetail(APIView):
 
     permission_classes = [permissions.IsAuthenticated]
 
-    def has_permission(self, user_id: int, match: Match):
-        """
-        :param user_id:
-        :param match:
-        :return:
-        """
-        if user_id != match.user.id:
-            return False
-        return True
-
-    def get_object(self, pk: int) -> Response:
-        """
-        :param pk:
-        :return:
-        """
-        try:
-            return Match.objects.get(project__id=pk, user_id=self.request.user.id)
-        except Project.DoesNotExist:
-            raise Http404
-
     @swagger_auto_schema(responses=get_project_detail_response_schema_dict)
     def get(self, request: Request, pk: int) -> Response:
         """
@@ -289,9 +324,9 @@ class MatchDetail(APIView):
         :param pk:
         :return:
         """
-        match = self.get_object(pk)
-        if self.has_permission(self.request.user.id, match):
-            serializer = MatchSerializer(match.project)
+        match = get_object(pk)
+        if has_permission(request.user, match):
+            serializer = MatchSerializer()
             return Response(serializer.data)
         else:
             return Response(status=status.HTTP_403_FORBIDDEN)
