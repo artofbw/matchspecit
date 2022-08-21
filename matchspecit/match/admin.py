@@ -11,14 +11,37 @@ class MatchAdmin(ModelAdmin):
         "project",
         "match_percent",
         "created_at",
+        "project_owner_approved",
+        "specialist_approved",
     )
-    fieldsets = ((None, {"fields": ("user", "project", "match_percent", "created_at")}),)
+    fieldsets = (
+        (
+            None,
+            {
+                "fields": (
+                    "user",
+                    "project",
+                    "match_percent",
+                    "created_at",
+                    "project_owner_approved",
+                    "specialist_approved",
+                )
+            },
+        ),
+    )
     add_fieldsets = (
         (
             None,
             {
                 "classes": ("wide",),
-                "fields": ("user", "project", "match_percent", "created_at"),
+                "fields": (
+                    "user",
+                    "project",
+                    "match_percent",
+                    "created_at",
+                    "project_owner_approved",
+                    "specialist_approved",
+                ),
             },
         ),
     )
