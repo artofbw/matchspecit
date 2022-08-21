@@ -316,7 +316,7 @@ class MatchDetail(APIView):
         """
         match = get_object(pk)
         if check_owner_or_specialist(request.user.id, match):
-            serializer = MatchPatchSerializer(match.project, data=request.data, partial=True)
+            serializer = MatchPatchSerializer(match, data=request.data, partial=True)
 
             if serializer.is_valid():
                 serializer.save()
