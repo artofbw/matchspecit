@@ -84,9 +84,9 @@ class VerifyEmail(views.APIView):
                 user.is_active = True
                 user.save()
             return Response({'email': 'Successfully activated'}, status=status.HTTP_200_OK)
-        except jwt.ExpiredSignatureError as identifier:
+        except jwt.ExpiredSignatureError:
             return Response({'error': 'Activation Expired'}, status=status.HTTP_400_BAD_REQUEST)
-        except jwt.exceptions.DecodeError as identifier:
+        except jwt.exceptions.DecodeError:
             return Response({'error': 'Invalid token'}, status=status.HTTP_400_BAD_REQUEST)
 
 
