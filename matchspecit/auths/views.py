@@ -1,4 +1,6 @@
 from django.contrib.auth import get_user_model
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import render_to_string
 from rest_framework import generics, views, status
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework_simplejwt.views import TokenObtainPairView
@@ -11,7 +13,6 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.sites.shortcuts import get_current_site
 from django.urls import reverse
 from .utils import Util
-
 
 from matchspecit.auths.serializers import (
     ChangePasswordSerializer,
@@ -32,6 +33,7 @@ class RegisterView(generics.GenericAPIView):
     queryset = User.objects.all()
     permission_classes = (AllowAny,)
     serializer_class = RegisterSerializer
+
     def post(self, request):
         user = request.data
         serializer = self.serializer_class(data=user)
@@ -42,13 +44,27 @@ class RegisterView(generics.GenericAPIView):
         token = RefreshToken.for_user(user).access_token
         current_site = get_current_site(request).domain
         relative_link = reverse('email-verify')
-        absurl = 'http://' + current_site + relative_link + "?token=" + str(token)
-        email_body = 'Hi ' + user.username + \
-                     ' Use the link below to verify your email \n' + absurl
-        data = {'email_body': email_body, 'to_email': user.email,
-                'email_subject': 'Verify your email'}
+        url = 'http://' + current_site + relative_link + "?token=" + str(token)
+        context = {
+            "url": url,
+            "username": user.username,
+            "email": user.email,
+        }
+        email_html_message = render_to_string("email/register_email_confirmation.html", context)
 
-        Util.send_email(data)
+        msg = EmailMultiAlternatives(
+            # title:
+            "Resetowanie hasła dla MatchSpecIT",
+            # message:
+            email_html_message,
+            # from:
+            "noreply@somehost.local",
+            # to:
+            [user.email],
+        )
+        msg.attach_alternative(email_html_message, "text/html")
+        msg.send()
+
         return Response(user_data, status=status.HTTP_201_CREATED)
 
 
