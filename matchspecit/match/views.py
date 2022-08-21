@@ -7,7 +7,12 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from matchspecit.match.models import Match
-from matchspecit.match.serializers import MatchPatchSerializer, MatchSerializer
+from matchspecit.match.serializers import (
+    MatchPatchSerializer,
+    MatchProjectSerializer,
+    MatchSerializer,
+    MatchSpecialistSerializer,
+)
 
 DEFAULT_SUCCESS_RESPONSE = openapi.Response(
     description="Custom 200 response",
@@ -87,7 +92,7 @@ DEFAULT_AUTHENTICATION_RESPONSE = openapi.Response(
     description="Custom 404 response", examples={"application/json": {"detail": "Not found."}}
 )
 
-get_project_view_response_schema_dict = {
+get_match_view_response_schema_dict = {
     "200": openapi.Response(
         description="Custom 200 response",
         examples={
@@ -184,25 +189,25 @@ def get_object(pk: int) -> Response:
 
 class MatchSpecialistView(APIView):
     """
-    Retrieve a matched project instance list.
+    Retrieve a matches for specialist instance list.
 
     * Only authenticated users are able to access this view.
     """
 
     permission_classes = [permissions.IsAuthenticated]
 
-    @swagger_auto_schema(responses=get_project_view_response_schema_dict)
+    @swagger_auto_schema(responses=get_match_view_response_schema_dict)
     def get(self, request: Request) -> Response:
         """
         :param request:
         :return:
         """
         matches = Match.objects.filter(user_id=self.request.user.id).exclude(specialist_approved__isnull=False)
-        serializer = MatchSerializer(matches, many=True)
+        serializer = MatchSpecialistSerializer(matches, many=True)
         return Response(serializer.data)
 
 
-get_project_detail_response_schema_dict = {
+get_match_detail_response_schema_dict = {
     "200": DEFAULT_SUCCESS_RESPONSE,
     "401": DEFAULT_AUTHENTICATION_RESPONSE,
     "404": DEFAULT_NOT_FOUND_RESPONSE,
@@ -219,14 +224,14 @@ patch_match_detail_request_schema_dict = openapi.Schema(
 
 class MatchSpecialistMatchedView(APIView):
     """
-    Retrieve a matched project instance list.
+    Retrieve a matched matches for specialist instance list.
 
     * Only authenticated users are able to access this view.
     """
 
     permission_classes = [permissions.IsAuthenticated]
 
-    @swagger_auto_schema(responses=get_project_view_response_schema_dict)
+    @swagger_auto_schema(responses=get_match_view_response_schema_dict)
     def get(self, request: Request) -> Response:
         """
         :param request:
@@ -237,40 +242,40 @@ class MatchSpecialistMatchedView(APIView):
             .filter(specialist_approved=True)
             .filter(project_owner_approved=True)
         )
-        serializer = MatchSerializer(matches, many=True)
+        serializer = MatchSpecialistSerializer(matches, many=True)
         return Response(serializer.data)
 
 
 class MatchProjectView(APIView):
     """
-    Retrieve a matched project instance list.
+    Retrieve a matches for project instance list.
 
     * Only authenticated users are able to access this view.
     """
 
     permission_classes = [permissions.IsAuthenticated]
 
-    @swagger_auto_schema(responses=get_project_view_response_schema_dict)
+    @swagger_auto_schema(responses=get_match_view_response_schema_dict)
     def get(self, request: Request, pk: int) -> Response:
         """
         :param request:
         :return:
         """
         matches = Match.objects.filter(project__id=pk).exclude(project_owner_approved__isnull=False)
-        serializer = MatchSerializer(matches, many=True)
+        serializer = MatchProjectSerializer(matches, many=True)
         return Response(serializer.data)
 
 
 class MatchProjectMatchedView(APIView):
     """
-    Retrieve a matched project instance list.
+    Retrieve a matched matches for project instance list.
 
     * Only authenticated users are able to access this view.
     """
 
     permission_classes = [permissions.IsAuthenticated]
 
-    @swagger_auto_schema(responses=get_project_view_response_schema_dict)
+    @swagger_auto_schema(responses=get_match_view_response_schema_dict)
     def get(self, request: Request, pk: int) -> Response:
         """
         :param request:
@@ -280,20 +285,20 @@ class MatchProjectMatchedView(APIView):
         matches = (
             Match.objects.filter(project__id=pk).filter(specialist_approved=True).filter(project_owner_approved=True)
         )
-        serializer = MatchSerializer(matches, many=True)
+        serializer = MatchProjectSerializer(matches, many=True)
         return Response(serializer.data)
 
 
 class MatchDetail(APIView):
     """
-    Retrieve a matched project instance.
+    Retrieve a match instance.
 
     * Only authenticated users are able to access this view.
     """
 
     permission_classes = [permissions.IsAuthenticated]
 
-    @swagger_auto_schema(responses=get_project_detail_response_schema_dict)
+    @swagger_auto_schema(responses=get_match_detail_response_schema_dict)
     def get(self, request: Request, pk: int) -> Response:
         """
         :param request:

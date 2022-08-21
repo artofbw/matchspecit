@@ -25,6 +25,36 @@ class MatchSerializer(serializers.ModelSerializer):
         ]
 
 
+class MatchSpecialistSerializer(serializers.ModelSerializer):
+    project = ProjectSerializer()
+
+    class Meta:
+        model = Match
+        depth = 1
+        fields = [
+            "id",
+            "project",
+            "match_percent",
+            "project_owner_approved",
+            "specialist_approved",
+        ]
+
+
+class MatchProjectSerializer(serializers.ModelSerializer):
+    user = UserSerializer()
+
+    class Meta:
+        model = Match
+        depth = 1
+        fields = [
+            "id",
+            "user",
+            "match_percent",
+            "project_owner_approved",
+            "specialist_approved",
+        ]
+
+
 class MatchPatchSerializer(serializers.ModelSerializer):
     class Meta:
         model = Match
