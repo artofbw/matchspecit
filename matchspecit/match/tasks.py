@@ -22,6 +22,7 @@ def match_user_with_project():
                 project_technologies = project.technologies.count()
 
                 match_percent = round(Decimal(user_technologies) / Decimal(project_technologies), 2)
+                match_percent = match_percent if match_percent < 1 else 1.0
 
                 if match_percent >= settings.MATCH_PERCENT:
                     try:
