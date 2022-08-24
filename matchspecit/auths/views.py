@@ -49,7 +49,7 @@ class RegisterView(generics.GenericAPIView):
 
         msg = EmailMultiAlternatives(
             # title:
-            "Resetowanie hasła dla MatchSpecIT",
+            "Weryfikacja adresu email MatchSpecIT",
             # message:
             email_html_message,
             # from:
