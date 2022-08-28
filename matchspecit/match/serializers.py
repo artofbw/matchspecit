@@ -11,6 +11,7 @@ User = get_user_model()
 class MatchSerializer(serializers.ModelSerializer):
     user = UserSerializer()
     project = ProjectSerializer()
+    owner_email = serializers.SerializerMethodField()
 
     class Meta:
         model = Match
@@ -22,7 +23,11 @@ class MatchSerializer(serializers.ModelSerializer):
             "match_percent",
             "project_owner_approved",
             "specialist_approved",
+            "owner_email",
         ]
+
+    def get_owner_email(self, obj):
+        return obj.project.owner.email
 
 
 class MatchSpecialistSerializer(serializers.ModelSerializer):
@@ -37,7 +42,11 @@ class MatchSpecialistSerializer(serializers.ModelSerializer):
             "match_percent",
             "project_owner_approved",
             "specialist_approved",
+            "owner_email",
         ]
+
+    def get_owner_email(self, obj):
+        return obj.project.owner.email
 
 
 class MatchProjectSerializer(serializers.ModelSerializer):
@@ -52,7 +61,11 @@ class MatchProjectSerializer(serializers.ModelSerializer):
             "match_percent",
             "project_owner_approved",
             "specialist_approved",
+            "owner_email",
         ]
+
+    def get_owner_email(self, obj):
+        return obj.project.owner.email
 
 
 class MatchPatchSerializer(serializers.ModelSerializer):
@@ -62,3 +75,6 @@ class MatchPatchSerializer(serializers.ModelSerializer):
             "project_owner_approved",
             "specialist_approved",
         ]
+
+    def get_owner_email(self, obj):
+        return obj.project.owner.email
