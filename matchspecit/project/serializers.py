@@ -13,7 +13,7 @@ class ProjectSerializer(serializers.ModelSerializer):
         allow_null=True,
         default=None,
     )
-    image = serializers.ImageField(max_length=None, allow_empty_file=True, use_url=False)
+    image = serializers.ImageField(required=False, max_length=None, allow_empty_file=True, use_url=False)
 
     class Meta:
         model = Project
