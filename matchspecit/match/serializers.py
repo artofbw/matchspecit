@@ -61,11 +61,7 @@ class MatchProjectSerializer(serializers.ModelSerializer):
             "match_percent",
             "project_owner_approved",
             "specialist_approved",
-            "owner_email",
         ]
-
-    def get_owner_email(self, obj):
-        return obj.project.owner.email
 
 
 class MatchPatchSerializer(serializers.ModelSerializer):
