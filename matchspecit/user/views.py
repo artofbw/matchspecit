@@ -22,6 +22,7 @@ get_response_schema_dict = {
                 "description": "",
                 "is_matchable": True,
                 "technologies": [6, 7, 8, 9],
+                "image": "/files/covers/image_1.png",
             }
         },
     )
@@ -69,6 +70,7 @@ patch_request_schema_dict = openapi.Schema(
                 properties={"id": openapi.Schema(type=openapi.TYPE_INTEGER, description="identifier")},
             ),
         ),
+        "image": openapi.Schema(type=openapi.TYPE_STRING),
     },
 )
 

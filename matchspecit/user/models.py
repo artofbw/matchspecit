@@ -8,6 +8,7 @@ class User(AbstractUser):
     description = models.TextField("description", blank=True, null=True)
     is_matchable = models.BooleanField("matchable", default=True)
     technologies = models.ManyToManyField(Technology, related_name="users2technologies")
+    image = models.ImageField(upload_to="files/covers", blank=True, null=True)
 
     def __str__(self):
         return self.username
