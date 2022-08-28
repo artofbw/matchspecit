@@ -20,6 +20,7 @@ class TestProjectDetail:
             "last_name": "",
             "technologies": [],
             "username": user.username,
+            "image": None
         }
         api_client.force_authenticate(user=user)
 
@@ -41,6 +42,7 @@ class TestProjectDetail:
             "last_name": "",
             "technologies": [],
             "username": user.username,
+            "image": None
         }
         api_client.force_authenticate(user=user)
 
@@ -63,6 +65,7 @@ class TestProjectDetail:
             "last_name": "",
             "technologies": [technologies[0].id, technologies[1].id],
             "username": user.username,
+            "image": None
         }
         api_client.force_authenticate(user=user)
 
@@ -86,6 +89,7 @@ class TestProjectDetail:
             "last_name": "",
             "technologies": [technologies[0].id],
             "username": user.username,
+            "image": None
         }
         api_client.force_authenticate(user=user)
 
