@@ -66,7 +66,6 @@ class MatchProjectSerializer(serializers.ModelSerializer):
 
 
 class MatchPatchSerializer(serializers.ModelSerializer):
-    owner_email = serializers.SerializerMethodField()
 
     class Meta:
         model = Match
@@ -74,6 +73,3 @@ class MatchPatchSerializer(serializers.ModelSerializer):
             "project_owner_approved",
             "specialist_approved",
         ]
-
-    def get_owner_email(self, obj):
-        return obj.project.owner.email
