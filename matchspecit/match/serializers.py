@@ -32,6 +32,7 @@ class MatchSerializer(serializers.ModelSerializer):
 
 class MatchSpecialistSerializer(serializers.ModelSerializer):
     project = ProjectSerializer()
+    owner_email = serializers.SerializerMethodField()
 
     class Meta:
         model = Match
@@ -65,6 +66,7 @@ class MatchProjectSerializer(serializers.ModelSerializer):
 
 
 class MatchPatchSerializer(serializers.ModelSerializer):
+    owner_email = serializers.SerializerMethodField()
     class Meta:
         model = Match
         fields = [
